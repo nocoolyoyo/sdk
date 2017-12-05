@@ -1,0 +1,51 @@
+//-----------------------
+//下拉加载
+//-----------------------
+//变量
+$height-refresher: 2rem;   //高度
+.page-refresher {
+  position: absolute;
+  background-color: map_get($Colors,milk);
+    //position: absolute;
+    height: $height-refresher;
+    display: block;
+    width: 100%;
+    top: - $height-refresher;
+ //  z-index: 2;
+   img {
+      display: block;
+      margin: 0 auto;
+      height: $height-refresher;
+      width: auto;
+   }
+}
+//-----------------------
+//滚动加载
+//-----------------------
+$height-loader: 1rem;   //高度
+.page-loader {
+  background-color: map_get($Colors,milk);
+  display: block;
+  width: 100%;
+  padding-bottom: 0.4rem;
+  img {
+    display: block;
+    margin: 0 auto;
+    height: $height-loader;
+    width: auto;
+  }
+  .loader-txt {
+
+    text-align: center;
+    color:map_get($Colors,darklightest);
+    @include dpr-output(
+                            (font-size, Font(s2))
+    )
+  }
+}
+.scroller {
+  z-index:3;
+  position: relative;
+    //margin-top: -$height-refreshe
+}
+

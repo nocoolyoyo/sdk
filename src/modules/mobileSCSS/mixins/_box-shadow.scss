@@ -1,0 +1,8 @@
+//-----------------------
+//box-shadow兼容
+//-----------------------
+@mixin box-shadow($shadow) {
+  box-shadow: $shadow;
+  -moz-box-shadow: $shadow;
+  -webkit-box-shadow: $shadow;
+}

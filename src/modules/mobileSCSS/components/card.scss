@@ -1,0 +1,733 @@
+//-----------------------
+//卡片组件
+//-----------------------
+//变量
+$bg-color: map-get($Colors,white);              //背景色
+$color-border:  map-get($Colors,darklightest);              //分割线
+
+$color-title: map-get($Colors,dark);    //卡片标题字体颜色
+$color-content: map-get($Colors,darklighter);    //卡片正文字体颜色
+$color-content: map-get($Colors,darklighter);    //卡片正文字体颜色
+$color-summary: map-get($Colors,darklighter);    //卡片描述字体颜色
+
+$color-link: map-get($Colors,primary);    //卡片链接字体颜色
+$color-operation: map-get($Colors,darklightest);    //操作栏图标颜色
+
+$color-active: map-get($Colors,primary);    //激活的颜色
+
+$font-title: Font(h2);    //卡片标题字体大小
+$font-summary: Font(p2);    //卡片描述字体大小
+
+
+$font-operation: 0.5rem;    //操作栏图标大小
+
+$lineheight-title: LineHeight(h2);    //卡片正文行高
+$lineheight-summary: LineHeight(p2);    //卡片正文行高
+
+$space-operation-icon: Space(6);             //操作栏图标距离
+
+$space-card-margin-updown: Space(4);             //卡片之间上下距离
+$space-card-padding: Space(3);             //卡片之间内部距离
+
+$box-shadow: map_get($Shadows, primary);    //卡片阴影
+$height-label-md:groupCalc(Font(s1), 1.6, multi);                    //中标签高度
+
+$height-poster: 2.96rem;                    //榜样海报宽
+$width-poster: 2.42rem;                    //榜样海报宽
+
+$font-sourcequot: Font(p2);    //引源字体大小
+$space-sourcequote-padding: Space(3);             //引源内部距离
+$bg-sourcequote: map-get($Colors,milk);              //引源背景色
+$color-sourcequote: map-get($Colors,darklightest);    //引源字体色
+$color-sourcequote-border:  0.06rem solid map-get($Colors,primary);              //引源标注色
+
+
+
+
+$font-title: Font(h2);    //卡片标题字体大小
+$color-title: map-get($Colors,dark);    //卡片标题字体颜色
+$lineheight-title: LineHeight(h2);    //卡片标题行高
+
+$font-content: Font(p1);    //卡片内容字体大小
+$color-content: map-get($Colors,darklighter);    //卡片内容字体颜色
+$lineheight-content: LineHeight(p1);    //卡片内容行高
+
+$color-summary: map-get($Colors,darklighter);    //卡片描述字体颜色
+$lineheight-summary: LineHeight(p2);    //卡片描述行高
+
+$font-warning: Font(p2);    //卡片警告字体大小
+$color-warning: map-get($Colors,warning);    //卡片警告字体颜色
+
+
+
+$size-card-widge-reco: 0.9rem;  //card-widge尺寸
+//阴影盒子
+%shadow-box {
+   position: relative;
+   background-color: $bg-color;
+   display: block;
+   @include box-shadow($box-shadow);
+   @include border-radius();
+   @include box-sizing();
+    word-break: break-all;
+}
+
+//卡片标签
+%card-label{
+  position: absolute;
+  z-index: 3;
+  //间距换算
+  //$space-label-md:();
+  //@each $val in $height-label-md {
+  //  @debug $val;
+  //  $space-label-md: append($space-label-md, -1*$val/2, comma)
+  //};
+  //right: 0.4rem;
+  $space-label-md: groupCalc($height-label-md,2,division);
+  $space-label-md: groupReves($space-label-md);
+  //@include dpr-output(
+  //      (top, $space-label-md),
+  //      (right, groupReves($space-label-md))
+  //);
+  $space-label-md-r: Space(3);
+  @include dpr-output(
+                          (top, $space-label-md),
+                          (right, $space-label-md-r)
+  );
+
+  .label {
+    @extend %label-md;
+    @extend %shadow-primary-slim;
+  }
+}
+.card-label {
+  @extend %card-label;
+}
+//卡片媒体栏
+.card-media {
+  @include display-flex(row, space-between, center);
+  @include dpr-output(
+          (margin-bottom, Space(1))
+  )
+}
+//卡片互动区
+.card-interaction {
+  $space-comment-col:0.06rem;
+  @include dpr-output(
+                          (margin, Space(2) 0)
+  );
+  //点赞列表
+  .praise {
+    color: $color-summary;
+    @include dpr-output(
+                            (margin-bottom, Space(1))
+    );
+  }
+  //评论列表
+  .comments {
+    word-break: break-all;
+    color: $color-summary;
+    line-height: 1.2;
+    .comment {
+      margin-bottom: $space-comment-col;
+    }
+
+    .comments-more {
+      @include dpr-output(
+                              (margin-top, Space(1))
+      );
+      color: map_get($Colors, darklightest);
+      &:active {
+        color: map_get($Colors, primary)
+      }
+    }
+  }
+}
+//卡片操作区
+.operation {
+  color: $color-operation;
+  font-size: $font-operation;
+  @include dpr-output(
+                          (margin, Space(4) 0 Space(2) 0)
+  );
+  &> button,&> div  {
+    display: inline-block;
+    background-color: transparent;
+    @include dpr-output(
+                            (padding-right, $space-operation-icon)
+    );
+    //点击和激活效果
+    &.active,&:active {
+      color: $color-active;
+    }
+  }
+  //button {
+  //  background-color: transparent;
+  //  @include dpr-output(
+  //                          (padding-right, $space-operation-icon)
+  //  );
+  //  //点击和激活效果
+  //  &.active,&:active {
+  //    color: $color-active;
+  //  }
+  //}
+}
+
+//卡片样式基础
+.card {
+   //阴影盒子样式集成
+   @extend %shadow-box;
+    @include dpr-output(
+          (padding, Space(3) Space(3) Space(2)),
+          (margin, $space-card-margin-updown Space(3))
+    );
+   //width: 100%;
+  //结构
+   //卡片右上角推荐挂件
+   .card-widge-reco {
+      position: absolute;
+      z-index: 2;
+      top:0;
+      right: 0;
+      //-webkit-transform: rotateY(180deg) !important;
+      //transform: rotateY(180deg) !important;
+      //-ms-transform:rotateY(180deg) !important;	/* IE 9 */
+      //-moz-transform:rotateY(180deg) !important;	/* Firefox */
+      //-o-transform:rotateY(180deg) !important;	/* Opera */
+      height: $size-card-widge-reco;
+      width: $size-card-widge-reco;
+      overflow: hidden;
+      @include border-top-right-radius();
+      background: url(data:image/png;base64,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);
+      background-position: center;
+      background-size: 110%;
+   }
+
+
+   //动态列表
+   //$space-list-left:1.3rem;
+   .list-common {
+      //@include dpr-output(
+      //   (margin-left, Space(12))
+      //)
+     @include dpr-output(
+             (margin-left, Space(101))
+     );
+     li {
+       margin: 0 !important;
+     }
+   }
+   //卡片内容主要区域
+   .magzine {
+     overflow-x: hidden;
+      @include display-flex(row,space-between,flex-start);
+      .content-area {
+          overflow-x: hidden;
+         @include flex(1);
+      }
+      @include dpr-output(
+         (margin-bottom, Space(1))
+      );
+   }
+   //卡片互动
+   .handler {
+      @include dpr-output(
+               (font-size, $font-summary)
+      );
+      @include display-flex(column,center,center)
+   }
+   //星级推荐
+   .reco-level {
+      @include dpr-output(
+            (margin, Space(3) 0 Space(2) 0)
+      );
+   }
+   //
+   //内容分类
+   //
+   //大咖
+   //海报
+   .cover {
+      height: $height-poster;
+      width: $width-poster;
+      @include dpr-output(
+            (margin-right, Space(3))
+      );
+       background-position: center;
+      background-repeat:no-repeat;
+       background-size:cover;
+     background-color: map_get($Colors,graylightest);
+      //img {
+      //   height: auto;
+      //   width: auto;
+      //}
+   }
+
+
+   //警告
+   .warning {
+      color: $color-warning;
+      @include dpr-output(
+         (margin-bottom, Space(1)),
+         (font-size, Font(p2))
+      );
+   }
+
+
+
+   .card-handler {
+      @include dpr-output(
+            (margin,Space(3) 0 Space(2))
+      );
+      @include display-flex(column, center,center)
+   }
+
+  .reco-show {
+    .show-title {
+      @include display-flex(row,space-between,center);
+      .title{
+        margin-bottom: 0 !important;
+      }
+      @include dpr-output(
+                              (margin-bottom,Space(1))
+      );
+      a {
+        @include dpr-output(
+                                (font-size,Font(s1))
+        );
+      }
+    }
+    .show-warpper {
+      //@include display-flex(row,flex-start,center);
+        width: 100%;
+        height: auto;
+        @include display-flex(row, space-between, center);
+        -webkit-flex-wrap: wrap;
+        flex-flow: row wrap;
+        -webkit-flex-flow: row wrap;
+        @include dpr-output(
+                                (margin-bottom,Space(1))
+        );
+        .item{
+          width: 20vw;
+          vertical-align:middle;
+          overflow: hidden;
+        }
+        .itemHolder {
+          height:0 !important;
+          width: 20vw;
+          visibility: hidden;
+        }
+    }
+  }
+
+      //$slide-show-item-width: 1.73rem;
+      //$slide-show-item-margin: 0.2rem;
+      ////滚动栏
+      //.slide-show{
+      //   overflow: hidden;
+      //   .slide-title {
+      //      @include dpr-output(
+      //                              (margin-bottom,Space(2))
+      //      );
+      //      @include display-flex(row, space-between,center);
+      //      .title {
+      //         margin-bottom: 0;
+      //      }
+      //   }
+      //   .slide-area {
+      //      @include no-scrollbar();
+      //      overflow: auto;
+      //
+      //      width: 100%;
+      //     &::-webkit-scrollbar {/*隐藏滚轮*/
+      //       display: none;
+      //     }
+      //     @include dpr-output(
+      //               (margin-bottom,Space(2))
+      //     );
+      //      //&:after {
+      //      //  content: ' ';
+      //      //  height: 0.2rem;
+      //      //  width: 100%;
+      //      //  background-color: white;
+      //      //  position: absolute;
+      //      //  bottom: 0;
+      //      //}
+      //      .show-warpper {
+      //        &::-webkit-scrollbar {/*隐藏滚轮*/
+      //          display: none;
+      //        }
+      //         width: 1000vw;
+      //         .item {
+      //            margin-right: $slide-show-item-margin;
+      //            width: $slide-show-item-width;
+      //            float: left;
+      //
+      //            .name,
+      //            .position{
+      //               width: inherit;
+      //               @include ellipsis(1);
+      //            }
+      //         }
+      //      }
+      //   }
+      //}
+
+   //特殊矫正
+   //.icon-notepad {
+   //   font-size: 0.46rem;
+   //   vertical-align: text-bottom;
+   //}
+}
+
+
+//
+//圈子条状卡片
+//
+
+.card-circle-item {
+   $card-circle-list-avatar-size: 2rem; //卡片头像高度
+
+   @extend %shadow-box;
+   //width: 100%;
+   @include dpr-output(
+         (margin,Space(4) Space(3) ),
+         (padding-right,Space(3))
+   );
+   height: $card-circle-list-avatar-size;
+   .card-body{
+      width: 100%;
+      @include display-flex(row,space-between,center);
+      .avatar {
+         @include border-left-radius();
+         height: $card-circle-list-avatar-size;
+         width: $card-circle-list-avatar-size;
+         img{
+            height: inherit;
+            width: inherit;
+            @include border-left-radius();
+         }
+         @include dpr-output(
+            (margin-right, Space(3))
+         );
+      }
+      .description {
+        text-align: left;
+         overflow: hidden;
+         @include flex(1);
+        //结构
+        .title-row {
+          @include display-flex(row,flex-start,center);
+        }
+        //内容
+        .title {
+          color: map_get($Colors, dark);
+          font-weight: bold;
+          @include dpr-output(
+                                  (font-size, Font(h2))
+          );
+          margin-bottom: 0 !important;
+          width: inherit;
+          @include ellipsis(1);
+        }
+        .notice{
+          color: map_get($Colors, darklightest);
+          @include display-flex(row,flex-start,center);
+          padding-left: 0.1rem;
+
+          &:before {
+            content: '  ';
+            margin: 0 0.1rem;
+            height: 0.15rem;
+            display: block;
+            width: 0.15rem;
+            background-color: map_get($Colors,red);
+            //border-radius:  0.15rem;
+            @include border-radius(50%);
+            color: map_get($Colors,red);
+            overflow: hidden;
+            [data-dpr="1"] &{
+              -webkit-transform-origin: 50% 50%;
+              transform-origin: 50% 50%;
+              -webkit-transform: scale(1);
+              transform: scale(1);
+            }
+          }
+          @include dpr-output(
+                                  (font-size, Font(s2))
+          );
+        }
+         .summary {
+            color: map_get($Colors, darklightest);
+            @include dpr-output(
+                                    (font-size, Font(s1)),
+                                    (margin-top, Space(1))
+            );
+            width: inherit;
+            @include ellipsis(1);
+
+         }
+      }
+   }
+}
+
+
+//
+//圈子列表卡片
+//
+
+.card-circle-list {
+  @extend %shadow-box;
+  //width: 100%;
+  @include dpr-output(
+                          (margin,0 Space(3)),
+                          (padding,0 Space(3))
+  );
+  .card-media {
+    @include dpr-output(
+                    (padding, Space(3) 0),
+                    (margin-bottom,Space(1))
+    );
+    margin: 0 !important;
+  }
+}
+
+
+
+.marquee {
+  overflow: -webkit-marquee;//只有设置为marquee才有滚动效果
+  -webkit-marquee-style: scroll;
+  -webkit-marquee-repetition: infinite;
+  -webkit-marquee-direction: right;
+  -webkit-marquee-speed:slow;
+  //  overflow: -webkit-marquee;//只有设置为marquee才有滚动效果
+  //　　-webkit-marquee-direction: left;//文字滚动方向 可选值为left | right | up | down
+  //　　-webkit-marquee-speed: normal;//文字滚动速度 可选值为slow | normal | fast
+  //　　-webkit-marquee-style: scroll;//文字滚动方式 可选值为scroll | slide | alternate
+  //　　-webkit-marquee-repetition: infinite;//文字滚动次数 number | infinite ， infinite即无限次循环滚动
+}
+////滚动板
+//.scroll-board {
+//    $slide-show-item-width: 1.73rem;
+//    $slide-show-item-margin: 0.2rem;
+//    overflow-y: hidden;
+//     overflow-x: auto;
+//     //.scroll-area {
+//     //   @include no-scrollbar();
+//     //   overflow: auto;
+//     //   width: 100%;
+//     // height:4.8rem;
+//       &::-webkit-scrollbar {/*隐藏滚轮*/
+//         display: none;
+//       }
+//       //@include dpr-output(
+//       //          (padding,0 Space(3))
+//       //);
+//        .scroll-wrapper {
+//          //&::-webkit-scrollbar {/*隐藏滚轮*/
+//          //  display: none;
+//          //}
+//            width: 1000vw;
+//          @include dpr-output(
+//                    (padding,0 Space(3))
+//          );
+//           .card {
+//             margin-right: 0 !important;
+//             //margin-bottom: 5px !important;
+//              display: inline-block;
+//              width: 80vw;
+//              float: left;
+//           }
+//        }
+//     //}
+//}
+//早茶卡片
+$border-newspaper-outer:1px solid map_get($Colors,dark);
+$border-newspaper-inner:1px solid map_get($Colors,darklightest);
+$width-calendar: 2.16rem;
+$font-date-today: 1.41rem;
+.card-newspaper {
+  background-color: $bg-color;
+  @include box-sizing(border-box);
+  @include dpr-output(
+                          (padding, Space(2) Space(2)),
+                          (margin, Space(3) Space(3))
+  );
+  border: $border-newspaper-outer;
+
+
+  .newspaper-header {
+    border: $border-newspaper-inner;
+    @include display-flex(row,flex-start,stretch);
+    @include dpr-output(
+                            (margin-bottom, Space(2))
+    );
+  }
+  .almanac {
+    text-align: center;
+     width: $width-calendar;
+    //margin-right:
+    border-right: $border-newspaper-inner;
+    @include dpr-output(
+                            (padding, Space(2) Space(2))
+    );
+    .date-today {
+      color: map_get($Colors, dark);
+      font-weight: bold;
+      font-size: $font-date-today;
+    }
+    .date-year,
+    .date-week{
+      color: map_get($Colors, darklightest);
+      @include dpr-output(
+                              (font-size,Font(s2)),
+                              (margin-top,Space(1))
+      )
+    }
+  }
+  .news-title {
+    @include flex(1);
+    @include dpr-output(
+                            (padding, Space(2) Space(2))
+    );
+  }
+  .news-title {
+
+    margin-bottom: 0 !important;
+  }
+  .newspaper-body {
+    border: $border-newspaper-inner;
+    @include dpr-output(
+                            (padding, Space(2) Space(2)),
+                            (margin-bottom, Space(2))
+    );
+    .content {
+      @include ellipsis(5);
+    }
+  }
+  .newspaper-footer {
+    @include dpr-output(
+                            (padding, Space(2) Space(2))
+    );
+    border: $border-newspaper-inner;
+  }
+  .card-interaction {
+    margin-top: 0 !important;
+  }
+}
+
+//
+//详情页卡片
+//
+//详情页头部卡片
+.card-detail-banner {
+  background-color: $bg-color;
+  @include dpr-output(
+                        (padding-top, Space(7)),
+                        (padding-left, Space(3)),
+                        (padding-right, Space(3)),
+                        (padding-bottom, Space(3))
+  );
+  @include box-shadow(map_get($Shadows,card-flat-primary));
+  position: relative;
+  z-index: 2;
+  .banner-title {
+    @include display-flex(row,space-between, flex-start);
+  }
+}
+.card-flat {
+  overflow: hidden;
+  background-color: $bg-color;
+  @include dpr-output(
+              (margin, 0 0 Space(2) 0)
+  );
+  ul {
+    li:first-child {
+      border-top: 0;
+    }
+  }
+  .title {
+    line-height: 1.2;
+    @include dpr-output(
+            (font-size, Font(h1))
+    );
+  }
+  //flat-card默认容器样式
+  .flat-row {
+    @include display-flex(row,space-between,center);
+    @include user-select();
+    .title {
+      line-height: 1;
+      @include dpr-output(
+                              (font-size, Font(p1))
+      );
+      margin-bottom: 0;
+    }
+    @include dpr-output(
+               (margin-bottom, Space(3)),
+              (padding, Space(3) Space(3) 0 Space(3))
+    );
+    .praise {
+      a {
+        @include dpr-output(
+                                (font-size,Font(p1))
+        );
+      }
+    }
+    .link {
+      font-weight: normal;
+      @include dpr-output(
+                              (font-size,Font(s1))
+      );
+    }
+  }
+  .flat-link {
+    @include user-select();
+    @include display-flex(row,space-around,center);
+    @include dpr-output(
+                            (margin-bottom, Space(3)),
+                            (padding, Space(3) Space(3) 0 Space(3))
+    );
+    a {
+      @include dpr-output(
+                              (font-size,Font(p1))
+      );
+    }
+    button {
+      @include dpr-output(
+                              (margin, Space(2) 0)
+      );
+    }
+  }
+}
+//第一个card-flat元素
+.card-flat-shadow {
+  position: relative;
+  z-index: 2;
+  @include box-shadow(map_get($Shadows,card-flat-primary))
+}
+//
+//全尺寸卡片
+//
+.card-fullsize {
+  .fullsize-cover {
+    img {
+      width: 100%;
+    }
+  }
+  overflow: hidden;
+  .card-body {
+    @include dpr-output(
+                            (padding, Space(3) Space(3) )
+    )
+  }
+  padding: 0 !important;
+  .card-footer {
+    @include dpr-output(
+                            (padding, Space(1) Space(3) )
+    )
+  }
+}
+
+

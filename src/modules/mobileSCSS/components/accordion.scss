@@ -1,0 +1,99 @@
+//-----------------------
+//手风琴组件
+//-----------------------
+//变量
+$bg-accordion:  map_get($Colors,white);              //背景颜色
+$bg-panel: map-get($Colors,white);              //背景色
+$space-accordion-out: Space(3);                        //间距
+$space-accordion-inset: Space(2);                        //间距
+
+$font-accordion-header: Font(p1);                    //头部字体大小
+$color-accordion-header: map-get($Colors,dark);                    //头部字体颜色
+$font-accordion-header-i: Font(s2);                    //头部icon大小
+$space-accordion-header-i: Space(1);                        //间距
+
+$space-accordion-body-li-insetleft: Space(4);                        //间距
+$space-accordion-body-li-bt: Space(3);                        //间距
+$space-accordion-body-li-inset: Space(2);                        //间距
+
+$font-accordion-mark: Font(s1);                    //头部字体大小
+$space-accordion-mark-l: Space(2);                        //间距
+$font-accordion-body-sbb_call: Font(p1);                    //iconcall大小
+$color-accordion-body-sbb_call: map-get($Colors,primary);                    //concalL颜色
+
+
+$transition-accordion: 0.3s ease-in-out;                //过渡动画
+$transition-accordion-item: 0.3s cubic-bezier(.4,.6,.2,1);                //过渡动画
+
+//$transition-max-height:999px;
+//手风琴组件
+.accordion {
+   background-color: $bg-accordion;
+   color: $color-accordion-header;
+   line-height: 1;
+   overflow: hidden;
+   @include border-radius();
+   @include box-shadow($box-shadow);
+   @include dpr-output(
+         (margin,$space-accordion-out $space-accordion-out)
+   );
+
+   .icon-start{
+      @include dpr-output(
+                              (font-size,$font-accordion-header-i),
+                              (margin-right,$space-accordion-header-i)
+      );
+      @include transform(rotate(90deg));
+      @include transtion(all, $transition-accordion);
+   }
+   .accordion-header {
+      @include display-flex(row,flex-start,center);
+      @include dpr-output(
+         (padding,$space-accordion-inset $space-accordion-inset),
+         (font-size,$font-accordion-header )
+      );
+
+   }
+   .accordion-body{
+      height:0;
+      //max-height:0;
+      //overflow:hidden;
+      @extend %list-base;
+      @include transtion(height, $transition-accordion-item);
+      li {
+         @include dpr-output(
+             (padding,$space-accordion-body-li-bt  0),
+                                 (margin,0 $space-accordion-body-li-inset 0  $space-accordion-body-li-insetleft)
+         );
+         @include border-bottom()
+      }
+      li:last-child:after {
+         border: none !important;
+      }
+      .mark {
+         @include dpr-output(
+                                 (font-size,$font-accordion-mark),
+                                 (margin-left, $space-accordion-mark-l)
+         );
+      }
+      .position {
+         color: $color-accordion-header;
+      }
+      .icon-call {
+         @include dpr-output(
+                                 (font-size,$font-accordion-body-sbb_call)
+         );
+         color:$color-accordion-body-sbb_call;
+         @include active-link();
+      }
+   }
+}
+
+.accordion-expend {
+   .icon-start {
+      @include transform(rotate(0deg));
+   }
+   //.accordion-body {
+   //   max-height: $transition-max-height
+   //}
+}

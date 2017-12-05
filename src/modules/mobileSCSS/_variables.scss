@@ -1,0 +1,144 @@
+//-----------------------
+//适配变量
+//-----------------------
+$dprs: (1 2 3);  // 1,2,3dpr
+
+//-----------------------
+//主题
+//-----------------------
+
+$Theme: GoldenTime;  //主题名
+
+$Theme-color-primary: #c6a86f;
+$Theme-bg-primary: #f8f7f4;
+
+
+//-----------------------
+//色板
+//-----------------------
+
+$Colors: (
+        white: white,    //标准色;
+        black: black,     //标准色,
+        red: red,       //标准色,
+
+        primary: $Theme-color-primary,
+        danger: #f63a2b,   //使用与危险提示类的文字
+        warning: #ed6d00,   //黄色
+        default: #dfdbd3,   //默认色
+
+        dark: #4a4a4a,   //黑色，重要文字，标题内容
+        darklighter: #737169,   //浅黑，使用广泛，多用于内容文字
+        darklightest: #b3afa8,   //淡黑，多用于提示性文字
+        slate: #bfbfbf,     //灰色，使用于导航栏文字
+        graylighter: #dfdbd3,   //浅灰色，时间等非重要性的文字,
+        graylightest: #e8e8e8,   //淡色，多用于分割线,
+        milk: #f8f7f4,   //淡色，主要背景颜色;
+
+        lazuli: #00b7ee,   //蓝色
+        forgivegreen: #6ccf40,      //朋友圈绿色;
+        wesharegreen: #3eaf35,      //微信绿色;
+        graySilk: rgba(#dfdbd3, .9)      //透明灰度框;
+);
+
+//-----------------------
+//间距,尺寸
+//-----------------------
+$Spaces: (
+           //间距
+           1: ( 5px 10px  14px),
+           2: (10px 20px  28px),
+           3: (16px 30px  42px),
+           4: (20px 40px  58px),
+           5: (26px 50px  72px),
+           6: (30px 60px  86px),
+           7: (44px 88px 126px),
+           8: (48px 98px 140px),
+          //头像尺寸
+           9:  (18px 38px 54px),
+           10: (30px 60px 86px),
+           11: (40px 80px 114px),
+           12: (60px 120px 172px),
+           13: (74px 148px 212px),
+    //暂时手算数  :TODO
+          100: (40px 80px 114px),
+          101: (50px 100px 142px)
+        );
+//@function Space($value,$dpr:false)
+//特殊rem间距尺寸
+$SpaceSpecals: (
+            1: 2rem,
+            2: 1rem,
+            3: 0.7rem,
+            4: 0.3rem,
+            5: 0.2rem,
+            6: 0.3rem,
+            7: 0.5rem,
+            8: 0.4rem,
+            9: 0.25rem,
+            10: 3rem
+);
+
+//-----------------------
+//字体-大小
+//-----------------------
+$Fonts:(
+        h1:(24px 48px 72px),              //大标题，多用于正文标题
+        h2:(18px 36px 52px),              //次标题，多用标题，人称
+        p1:(16px 32px 46px),              //主内容，多用正文，大多数文字
+        p2:(14px 28px 42px),              //次内容，少用
+        s1:(12px 24px 32px),              //较弱，用于提示性文字
+        s2:(12px 20px 28px),              //较弱，用于辅助性文字
+       );
+//@function Font($value,$dpr:false)
+
+//-----------------------
+//字体-行高
+//-----------------------
+$LineHeights:(
+              h1:(32px 64px 96px),        //大标题行高
+              h2:(26px 52px 76px),       //大标题行高
+              p1:(24px 48px 70px),       //主内容行高
+              p2:(22px 44px 66px)       //次内容行高
+            );
+//@function LineHeight($value,$dpr:false)
+
+//-----------------------
+//投影
+//-----------------------
+//primary:        0 3px 12px rgba(#a27b2e, 0.1),  //主要投影
+//primary-slim:   0 3px 4px  rgba(#7d5915, 0.3), //主要用于标签阴影
+//primary-bold:   0 6px 7px  rgba(#7d5915, 0.3),  //主要用于按钮阴影
+//primary-blur:   0 2px 16px rgba(#99835a, 0.2), //主要用于按钮阴影
+//primary-bottom: 0 2px 10px rgba(#99835a, 0.2) //主要用于底部工具栏阴影
+
+$Shadows: (
+        primary:        0 0.04rem 0.16rem rgba(#a27b2e, 0.1),  //主要投影
+        primary-slim:   0 0.04rem 0.05rem  rgba(#7d5915, 0.3), //主要用于标签阴影
+        primary-bold:   0 0.08rem 0.09rem  rgba(#7d5915, 0.3),  //主要用于按钮阴影
+        primary-blur:   0 0.03rem 0.21rem rgba(#99835a, 0.2), //主要用于按钮阴影
+        primary-bottom: 0 0.03rem 0.13rem rgba(#99835a, 0.2), //主要用于底部工具栏阴影
+        primary-top-lg: 0 -0.02rem 0.13rem rgba(#a27b2e, 0.2),  //底部导航投影
+        primary-circle-icon: 0 -0.15rem 0.2rem rgba(#a27b2e, 0.1),  //圈子圆圈投影
+        card-flat-primary:    0 0.08rem 0.38rem rgba(#a27b2e, 0.2),  //详情头部投影
+        card-flat-inset: 0px 0.16rem 0.38rem -0.08rem rgba(#a27b2e, 0.2) inset //替代详情头部下级内部投影
+);
+
+
+
+//-----------------------
+//圆角
+//-----------------------
+$Border-radius: 0.12rem;  //主要圆角,用于按钮输入框
+//-----------------------
+//边框
+//-----------------------
+$Border-graylightest-1: 1px solid map_get($Colors,graylightest);      //主要用于图片border
+
+//-----------------------
+//自定行数控制
+//-----------------------
+$ellipsis-lines:5;
+
+
+

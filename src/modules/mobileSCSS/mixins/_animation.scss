@@ -1,0 +1,105 @@
+//-----------------------
+//动画相关
+//-----------------------
+
+//-----------------------
+//transform
+//-----------------------
+@mixin transform($translate, $transform-origin:false) {
+  -webkit-transform: $translate;
+  transform: $translate;
+  @if($transform-origin){
+    -webkit-transform-origin: $transform-origin;
+    transform-origin: $transform-origin;
+  }
+
+}
+//-----------------------
+//transition
+//-----------------------
+@mixin transtion($property: transform, $transition: 0.3s linear){
+  -webkit-transition: -webkit-#{$property} $transition;
+  transition: -webkit-#{$property}  $transition;
+  transition: $property  $transition;
+}
+//@mixin transition($transition) {
+//  -webkit-transition: $transition;
+//  transition: $transition;
+//}
+@mixin backface-visibility($value:hidden) {
+  -webkit-backface-visibility: $value;
+  backface-visibility: $value;
+}
+
+
+//-----------------------
+//animation
+//-----------------------
+@mixin animation($property: transform, $transition: 0.3s linear){
+  -webkit-animation: -webkit-#{$property} $transition;
+  animation: -webkit-#{$property}  $transition;
+  animation: $property  $transition;
+}
+
+
+//-----------------------
+//keyframes
+//-----------------------
+@keyframes slideInLeft {
+  from {
+    transform: translate3d(-100%, 0, 0);
+    visibility: visible;
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes slideInRight {
+  from {
+    transform: translate3d(100%, 0, 0);
+    visibility: visible;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes slideOutLeft {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    visibility: hidden;
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+@keyframes slideOutRight {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    visibility: hidden;
+    transform: translate3d(100%, 0, 0);
+  }
+}
+@keyframes slideOutUp {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    visibility: hidden;
+    transform: translate3d(0, -100%, 0);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

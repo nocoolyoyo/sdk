@@ -1,0 +1,234 @@
+//-----------------------
+//全局页面结构样式
+//-----------------------
+
+$height-header: Space(7);                    //导航条高度
+$height-footer: Space(7);                    //工具条高度
+
+@font-face {
+  font-family: 'SanFrancisco';
+  src: url('fonts/SanFrancisco/SanFranciscoDisplayRegular.ttf');
+  font-weight: normal;
+}
+* {
+  @include box-sizing();
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+html {
+  //开启硬件渲染
+  //@include GPU-accerlate();
+}
+body, html {
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  background-color: $Theme-bg-primary;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  font-family: SanFrancisco,"SanFrancisco","微软雅黑" ;
+}
+//body {
+//  @include display-flex(column);
+//}
+//布局，全局使用三栏布局
+
+input {
+  line-height: 1;
+}
+
+//-----------------------
+//页面结构
+//-----------------------
+.page {
+  //开启硬件渲染
+  @include GPU-accerlate();
+  @include display-flex(column);
+  background-color: $Theme-bg-primary;
+  width: 100%;
+  overflow: hidden;
+  height: 100%;
+  contain: layout size style;
+}
+
+header {
+  z-index: 10;
+  //display: block;
+  //position: absolute;
+  //width: 100%;
+  //left: 0;
+  //top:0;
+  @include dpr-output(
+          (min-height,$height-header)
+  )
+}
+
+main {
+  @include flex(1);
+  position: relative;
+  display: block;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  overflow: hidden;
+  contain: size style layout;
+  top: 0;
+  left: 0;
+  //height: 100%;
+}
+main.scroller {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  will-change: scroll-position;
+  contain: size style layout;
+}
+//
+.scroller {
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  will-change: scroll-position;
+  contain: size style layout;
+  top: 0;
+  display: block;
+  left: 0;
+  height: 100%;
+  position: relative;
+}
+
+footer {
+  z-index: 10;
+  //display: block;
+  //position: absolute;
+  //width: 100%;
+  //left: 0;
+  //bottom:0;
+  @include dpr-output(
+                          (min-height,$height-footer)
+  )
+}
+
+.sticky-underheader {
+  @include box-shadow(map_get($Shadows,card-flat-inset));
+  position: sticky;
+  z-index:11;
+  position: -webkit-sticky;
+  @include dpr-output(
+                          (top,$height-header)
+  );
+
+  .avatar,.avatar img,.btn,.name-box,.name,.position {
+    @include transtion(all, 0.3s);
+  }
+}
+.sticky-top {
+  position: sticky;
+  z-index:11;
+  position: -webkit-sticky;
+  top:0
+}
+
+
+
+
+
+
+.page-body {
+  overflow: hidden;
+  background-color: transparent;
+}
+
+
+.page-normal {
+  @include dpr-output(
+                          (margin-bottom, Space(4))
+  )
+}
+.page-inset {
+  @include dpr-output(
+                          (padding,  0 Space(3)),
+                          (margin-bottom, Space(4))
+  )
+}
+
+
+
+
+//-----------------------
+//组件结构
+//-----------------------
+
+.row-wrapper {
+  @include display-flex(row,flex-start,center);
+  flex-wrap: wrap;
+  width: 100%;
+  -webkit-flex-wrap: wrap;
+  .wrapper-5-item {
+    width: 20%;
+    @include flex(0  0 20%);
+    @include  display-flex(column,center,center);
+  }
+}
+
+//-----------------------
+//登录页
+//-----------------------
+.login-bg {
+  background-color: map_get($Colors, primary);
+  height: 40vh;
+
+}
+.login-panel {
+  position: relative;
+  @include dpr-output(
+                          (font-size, Font(p1))
+  );
+  form {
+    margin-top: -10vh !important;
+  }
+  .panel-operation {
+    color: map_get($Colors,darklightest);
+    @include display-flex(row,space-around,center);
+
+    a {
+      text-align: center;
+      color: map_get($Colors,darklightest);
+      @include flex(1)
+    }
+  }
+  .panel-divider {
+    margin-top: 12vh !important;
+    color: map_get($Colors,darklightest);
+    @include dpr-output(
+
+                            (margin, Space(3) Space(3))
+    );
+    .divider-txt {
+      margin: 0 0.2rem;
+    }
+    .divider {
+      @include flex(1)
+    }
+    @include display-flex(row,space-around,center);
+  }
+  .panel-handler {
+    margin-top: 3vh !important;
+    color: map_get($Colors,darklightest);
+    @include display-flex(row,center,center);
+    i {
+      color: map_get($Colors,wesharegreen);
+      margin-right: 0.2rem;
+    }
+  }
+}
+
+
+//-----------------------
+//页面过渡
+//-----------------------

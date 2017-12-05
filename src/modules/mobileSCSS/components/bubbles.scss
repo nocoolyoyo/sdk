@@ -1,0 +1,59 @@
+//-----------------------
+//泡泡弹窗组件
+//-----------------------
+//变量
+$bg-color: map-get($Colors,white);              //背景色
+
+$color-vote-line: map-get($Colors,graylightest);   //投票线框颜色
+$color-vote-title: map-get($Colors,dark);   //投票标题颜色
+$color-vote-real: map-get($Colors,warning);   //投票真颜色
+$color-vote-fake: map-get($Colors,lazuli);   //投票假颜色
+
+$font-bubble-notice: Font(p2);    //动态弹窗字体大小
+$space-bubble-notice-bt-in: Space(2);    //动态弹窗字体大小
+$space-bubble-notice-lf-out: Space(3);    //动态弹窗字体大小
+
+$font-vote-radio:  map-get($SpaceSpecals,7);    //选项icon大小
+
+//
+//动态弹窗
+//
+.bubble-notice {
+    background-color: $bg-color;
+  width: auto;
+  display: inline-block;
+  @include box-shadow(primary-bold);
+  color: map_get($Colors,dark);
+  @include border-radius();
+   @include dpr-output(
+             (padding, $space-bubble-notice-bt-in $space-bubble-notice-lf-out),
+             (font-size,$font-bubble-notice)
+   );
+  .notice-message {
+    @include ellipsis(1);
+  }
+  position: relative;
+  &:after {
+    position: absolute;
+    bottom: -0.22rem;
+     left:1rem;
+    //@include dpr-output(
+    //
+    //        (left, Space(2))
+    //);
+    content: ' ';
+    //margin-left: 0.5rem;
+    @include box-shadow(primary-bold);
+    float:left; clear:both;
+    font-size: 0;
+    line-height: 0;
+    border-width: 0.24rem;
+    border-color: map_get($Colors,white);
+
+    border-bottom-width: 0;
+    border-style: dashed;
+    border-top-style: solid;
+    border-left-color: transparent;
+    border-right-color: transparent;
+  }
+}

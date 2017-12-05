@@ -1,0 +1,486 @@
+//-----------------------
+// 列表样式
+//-----------------------
+$bg-main: map_get($Colors,white);       //背景颜色
+
+$color-summary: map-get($Colors,darklighter);      //summary列表字体颜色
+$font-size-summary: Font(p1);                //summary列表字体大小
+//$space-updown-summary: Space(3);                //summary列表间距
+
+
+$color-live-title: map-get($Colors,darklighter);    //直播标题颜色
+$color-live-content: map-get($Colors,darklighter);    //直播内容颜色
+$color-live-v: map-get($Colors,warning);    //v颜色
+$color-live-note: map-get($Colors,darklighter);    //v颜色
+$color-live-empty:  map-get($Colors,darklightest);    //无内容文字颜色
+
+// 列表头样式
+$font-list-title: Font(p2);    //列表标题字体
+$space-list-title-padding: Space(2);             //列表标题距离
+$color-list-title: map-get($Colors,darklighter);    //列表标题颜色
+$color-list-title-border:  0.06rem solid map-get($Colors,primary);              //列表标注色
+
+$font-live-title: Font(p2);    //直播标题字体
+$font-live-content: Font(p2);    //直播内容字体
+$font-live-v: 0.26rem;    //直播v字体
+
+$font-live-note: Font(s2);    //直播内容字体
+$space-live-v: 0.15rem;    //直播v左间距
+$space-live-note: Space(2);    //直播note左间距
+
+%list-base {
+  list-style: none;
+  text-decoration: none;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  @include box-sizing();
+}
+//
+// 列表头样式
+//
+.list-title {
+    border-left: $color-list-title-border;
+    background-color: transparent;
+    @include dpr-output(
+            (margin, Space(3) 0),
+            (padding-left, $space-list-title-padding),
+            (font-size,$font-list-title)
+    );
+    color: $color-list-title;
+  @include display-flex(row, space-between, center);
+  a {
+    @include display-flex(row, space-between, center);
+    @include dpr-output(
+          (font-size,Font(s1))
+    );
+  }
+}
+//
+//通用列表
+//
+
+.list-common{
+  @extend %list-base;
+  @include display-flex(column);
+  color: $color-summary;
+  li {
+    @include border-top();
+    @include ellipsis(1);
+    display: block;
+    @include dpr-output(
+          (margin, 0 Space(3)),
+          (padding,Space(3) 0),
+          (font-size,$font-size-summary)
+    )
+  }
+  //li:last-child:after {
+  //  border-bottom: 0;
+  //}
+}
+
+
+
+//
+// livebox列表 活动直播
+//
+.live-box {
+  @extend %list-base;
+  @include display-flex(column);
+  .empty {
+      text-align: center;
+    @include dpr-output(
+            (font-size, $font-live-title),
+            (margin, Space(4) 0)
+    );
+    color: $color-live-empty;
+  }
+  .item{
+    @include dpr-output(
+          (margin-bottom, Space(2))
+    );
+    .header {
+      //@include dpr-output(
+      //    (margin-bottom, Space(1))
+      //);
+      @include display-flex(row,flex-start,center);
+      .live-title {
+        @include dpr-output(
+              (font-size, $font-live-title)
+        );
+        color: $color-live-title;
+        font-weight: bold;
+      }
+      //i {
+      //  font-size: $font-live-v;
+      //  margin-left: $space-live-v;
+      //  right:0;
+      //  top: 0;
+      //  color: $color-live-v
+      //}
+      .live-note {
+        @include dpr-output(
+                                (font-size, $font-live-note),
+                          (margin-left, $font-live-note)
+        );
+        color: $color-live-note;
+      }
+    }
+    .body {
+      line-height: 1.2;
+      color: $color-live-content;
+      @include dpr-output(
+                              (margin-top, Space(1)),
+                              (font-size, $font-live-content)
+      );
+      img {
+        max-width: 100%;
+        @include dpr-output(
+            (margin, Space(1) 0)
+        );
+
+      }
+    }
+  }
+}
+//资料列表
+.list-profile {
+  @extend %list-base;
+  $label-width: 2rem;
+  background-color: $bg-main;
+    @include dpr-output(
+          (padding, 0 Space(3))
+    );
+    li {
+      @include display-flex(row,flex-start,flex-start);
+      @include dpr-output(
+              (line-height, LineHeight(p1)),
+              (font-size, Font(p1)),
+              (padding, Space(3) 0 )
+      );
+      @include border-bottom();
+      label {
+        width: $label-width;
+        color: map_get($Colors,darklightest);
+        @include dpr-output(
+                (margin-right, Space(4)),
+                                (line-height, LineHeight(p1)),
+                                (font-size, Font(p2))
+        );
+        @include ellipsis(1);
+      }
+      .content {
+        @include flex(1);
+      }
+    }
+     li:last-child:after{
+       border: none;
+     }
+  .content {
+    margin-bottom: 0 !important;
+  }
+}
+
+
+
+$font-arrow: 0.5rem;
+$width-center: 45%;
+$width-label: 20%;
+
+//点击列表
+.list-action {
+  @extend %list-base;
+  @include user-select();
+  background-color: $bg-main;
+  //@include dpr-output(
+  //                        (padding, 0 Space(3))
+  //);
+
+  li {
+    //@include active-bg-darken(map_get($Colors,white));
+    @include display-flex(row,space-between,center);
+    color: map_get($Colors,darklightest);
+    @include dpr-output(
+                  (font-size, Font(p2)),
+                  (padding, Space(4) Space(3))
+    );
+    @include border-bottom();
+
+    .left {
+      @include flex(1);
+      @include display-flex(row,flex-start,center);
+      color:  map_get($Colors,dark);
+      i {
+        font-size: $font-arrow;
+        @include dpr-output(
+                                (margin-right, Space(3))
+        );
+      }
+
+      @include dpr-output(
+                  //(margin-right, Space(4)),
+                  (font-size, Font(p1))
+      );
+    }
+    .center {
+      text-align: left;
+      width: $width-center;
+      @include ellipsis(1);
+    }
+    .right {
+      width: $width-label;
+      @include display-flex(row,flex-end,center);
+      .icon-arrow-right {
+        @include dpr-output(
+                                (font-size, Font(p2)),
+                                (margin-left, Space(1))
+        );
+      }
+      .icon-radio-o {
+        @include dpr-output(
+                                (font-size, Font(h2))
+        );
+      }
+    }
+  }
+  li:last-child:after{
+    border: none;
+  }
+
+}
+//
+// 评论列表
+//
+
+.list-comments {
+  background-color: $bg-main;
+  @extend %list-base;
+  color: map_get($Colors,darklightest);
+  @include dpr-output(
+              (font-size, Font(p1)),
+              (padding, 0 Space(3) )
+  );
+
+
+  .comment-box {
+    @include dpr-output(
+              (margin-top, Space(4))
+    );
+    @include border-bottom();
+  }
+  .comment-box:last-child:after {
+    border-bottom: none !important;
+  }
+
+    .comment-header, .reply-header {
+      .avatar-group-sm {
+        @include flex(1);
+      }
+      @include display-flex(row,space-between, flex-start);
+      @include dpr-output(
+                              (font-size, Font(p2))
+      );
+    }
+    .operation-praise {
+       @include display-flex(row,center,center)
+    }
+    .praise-num {
+      @include dpr-output(
+                              (margin-right, Space(1)),
+              (font-size, Font(s1))
+      );
+    }
+    .comment-operation {
+      @include display-flex(row,space-between, center);
+      width: 1.8rem;
+    }
+
+  .comment-body {
+    @include dpr-output(
+                            (margin-left, Space(100)),
+                            (padding-bottom,  Space(2))
+    );
+
+    //@include border-bottom();
+  }
+
+
+  .list-replys {
+    position: relative;
+    @extend %list-base;
+    background-color: map_get($Colors,milk);
+    @include dpr-output(
+            (margin-bottom, Space(2)),
+            (padding,Space(2) Space(2))
+    );
+    &:before {
+      position: absolute;
+      top: -0.22rem;
+      @include dpr-output(
+                              (left, Space(2))
+      );
+      content: ' ';
+      //margin-left: 0.5rem;
+      float:left; clear:both;
+      font-size: 0;
+      line-height: 0;
+      border-width: 0.24rem;
+      border-color: map_get($Colors,milk);
+      //border-color: map_get($Colors,black);
+      border-top-width: 0;
+      border-style: dashed;
+      border-bottom-style: solid;
+      border-left-color: transparent;
+      border-right-color: transparent;
+    }
+  }
+  .reply-anthor {
+    @include display-flex(row,flex-start, center)
+
+  }
+  .reply-box {
+    @include dpr-output(
+                            (margin-bottom, Space(3))
+    );
+  }
+  .reply-box:last-child {
+    margin-bottom: 0
+  }
+  .reply-header {
+    @include display-flex(row,space-between, center)
+  }
+  .footnote {
+    //margin-top: 0 !important;
+    @include dpr-output(
+                            (margin-bottom, Space(2))
+    )
+  }
+  .player {
+    @include dpr-output(
+                    (important,margin-top, Space(2)),
+                            (important,margin-bottom, Space(1))
+    );
+  }
+}
+
+
+
+
+//文件，附件列表
+.list-file {
+  //@include display-flex(column,flex-start,center);
+  .file-item {
+    @include border-bottom()
+  }
+  .file-item:last-child:after {
+    border-bottom: none !important;
+  }
+}
+//
+//小嘉宾列表
+//
+.list-author-xs {
+  @include display-flex(row,flex-start,center);
+  flex-wrap:wrap;
+  -webkit-flex-wrap: wrap;
+  &> div {
+    @include dpr-output(
+                            (margin-right, Space(2))
+    )
+  }
+}
+//
+//关注人横向列表
+//
+.list-followers {
+  @include display-flex(row,flex-start,center);
+  @include dpr-output(
+                          (margin, Space(4) 0)
+  );
+  .item {
+    width:20vw;
+  }
+}
+
+//
+//方格图标菜单
+//
+$size-cell-menu-bar-icon: (30px, 60px, 90px);
+.cell-menu-bar {
+  @include display-flex(row,space-between,center);
+  @include dpr-output(
+                          (padding, Space(4) 0)
+  );
+  color: map_get($Colors,dark);
+  .item {
+    text-align: center;
+    @include flex(1);
+    .sbb-icon {
+      @include dpr-output(
+                              (font-size, $size-cell-menu-bar-icon)
+      );
+    }
+    .item-title {
+
+      @include dpr-output(
+                              (margin-top, Space(2)),
+              (font-size, Font(s1))
+      );
+    }
+  }
+}
+//
+//圈子成员小图标列表
+//
+.circle-action-bar {
+  background-color: map_get($Colors,white);
+  @include border-top();
+  @include display-flex(row,space-between,center);
+  @include dpr-output(
+                          (padding, Space(2) Space(2))
+  );
+}
+.labels-group-avatar {
+  @include display-flex(row,flex-start,center);
+  .avatar-group-xs {
+    margin-right: -0.1rem;
+  }
+  .avatar-group-xs:nth-child(1){
+    z-index: 5
+  }
+  .avatar-group-xs:nth-child(2){
+    z-index: 4
+  }
+  .avatar-group-xs:nth-child(3){
+    z-index: 3
+  }
+  .avatar-group-xs:nth-child(4){
+    z-index: 2
+  }
+  .avatar-group-xs:nth-child(5){
+    z-index: 1
+  }
+  .icon-more-circle {
+    color: map_get($Colors, graylighter);
+    @include dpr-output(
+              (font-size, Space(9))
+    );
+  }
+}
+
+//
+//成员列表
+//
+
+.list-members {
+  @include display-flex(row,flex-start,center);
+ flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  .item {
+    @include dpr-output(
+                            (margin-top, Space(5))
+    );
+    width: 20%;
+    //@include flex(0 0 25%);
+  }
+}

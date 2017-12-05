@@ -1,0 +1,102 @@
+//-----------------------
+// 标签
+//-----------------------
+
+
+$font-size-md: Font(s1);                //中标签字体
+$font-size-sm: Font(s2);                //小标签字体
+
+$space-side-md: map-get($SpaceSpecals,4);              //中标签两边宽度
+$space-side-sm: map-get($SpaceSpecals,5);             //小标签两边宽度
+
+$height-md: Space(5);                    //中标签高度
+$height-sm: Space(3);                //小标签高度
+
+
+
+
+
+
+$font-color-white: map-get($Colors,white);      //标签字体颜色
+$color-primary: map-get($Colors,primary);      //标签颜色
+$color-default: map-get($Colors,darklightest);      //标签颜色
+$color-danger: map-get($Colors,danger);      //线框标签颜色
+$color-warning: map-get($Colors,warning);      //线框标签颜色
+
+
+$box-shadow-label:  map_get($Shadows, primary-slim);  //标签阴影
+
+//
+// 标签基础
+//
+.label {
+  display: inline-block;
+  font-weight: normal;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  @include user-select(none);
+  @include border-radius(25px);
+}
+//
+// 标签形态
+//
+.label-primary {
+
+  color: $font-color-white;   //标签文字颜色
+  background-color: $color-primary;//标签主要颜色
+}
+.label-default {
+  color: $font-color-white;   //标签文字颜色
+  background-color: $color-default;//标签主要颜色
+}
+.label-danger {
+  color: $font-color-white;   //标签文字颜色
+  background-color: $color-danger;//标签主要颜色
+}
+.label-warning {
+  color: $font-color-white;   //标签文字颜色
+  background-color: $color-warning;//标签主要颜色
+}
+
+// 线框标签
+.label-warning-outline {
+  @include box-sizing();
+  @include border($color-warning, round);
+  color: $color-warning;   //标签文字颜色
+  background-color: transparent;//标签主要颜色
+}
+.label-danger-outline {
+  @include box-sizing();
+  @include border($color-danger, round);
+  color: $color-danger;   //标签文字颜色
+  background-color: transparent;//标签主要颜色
+}
+
+// 阴影标签形态
+.label-shadow {
+  @include box-shadow($box-shadow-label);
+}
+//
+// 标签尺寸
+//
+%label-md { //普通标签-类暴露
+  line-height: 1.6;
+  @include dpr-output(
+        (font-size, $font-size-md),
+        (padding,  0 $space-side-md)
+  );
+}
+.label-md { //普通标签
+  @extend %label-md;
+}
+%label-sm { //普通标签-类暴露
+  line-height: 1.2;
+  @include dpr-output(
+        (font-size, $font-size-sm),
+        (padding, 0 $space-side-sm)
+  );
+}
+.label-sm { //小号标签
+  @extend %label-sm;
+}

@@ -1,0 +1,178 @@
+//-----------------------
+// 表单样式
+//-----------------------
+$bg-main: map_get($Colors,white);       //背景颜色
+$bg-input: map_get($Colors,milk);       //背景颜色
+
+$color-font: map-get($Colors,darklighter);      //summary列表字体颜色
+$font-size-summary: Font(p1);                //summary列表字体大小
+//$space-updown-summary: Space(3);                //summary列表间距
+
+
+$color-live-title: map-get($Colors,darklighter);    //直播标题颜色
+$color-live-content: map-get($Colors,darklighter);    //直播内容颜色
+$color-live-v: map-get($Colors,warning);    //v颜色
+$color-live-note: map-get($Colors,darklighter);    //v颜色
+$color-live-empty:  map-get($Colors,darklightest);    //无内容文字颜色
+
+// 列表头样式
+$font-list-title: Font(p2);    //列表标题字体
+$space-list-title-padding: Space(2);             //列表标题距离
+$color-list-title: map-get($Colors,darklighter);    //列表标题颜色
+$color-list-title-border:  0.06rem solid map-get($Colors,primary);              //列表标注色
+
+$font-live-title: Font(p2);    //直播标题字体
+$font-live-content: Font(p2);    //直播内容字体
+$font-live-v: 0.26rem;    //直播v字体
+
+$font-live-note: Font(s2);    //直播内容字体
+$space-live-v: 0.15rem;    //直播v左间距
+$space-live-note: Space(2);    //直播note左间距
+
+
+//
+// 表单样式
+//
+.form-jelly {
+  @include dpr-output(
+          //(padding, 0 Space(3)),
+          (margin, Space(3) Space(3))
+  );
+  overflow: hidden;
+  background-color: $bg-main;
+  @include border-radius();
+  @include box-shadow(map_get($Shadows,primary));
+  color: map_get($Colors,darklightest);
+  .jelly-row {
+    @include display-flex(row,space-between,center);
+    @include dpr-output(
+           (margin, Space(3) Space(3))
+    );
+    .btn {
+      //min-width: 3rem;
+      box-shadow: none !important;
+      background-color: map_get($Colors,primary) !important;
+      @include dpr-output(
+                              (font-size, Font(p2)),
+                              (margin-left, Space(3)),
+                              (padding, Space(2) Space(2))
+        //(margin, Space(3) Space(3))
+      );
+    }
+  }
+  .jelly-cell {
+    @include flex(1);
+    background-color: $bg-input;
+    @include border-radius();
+    @include dpr-output(
+            (font-size, Font(p2)),
+            (padding, Space(2) Space(2))
+            //(margin, Space(3) Space(3))
+    );
+    @include display-flex(row,flex-start,center);
+    .cell-label {
+      color: map_get($Colors,darklightest);
+      @include display-flex(row,flex-start,center);
+      //word-wrap: break-word;
+      //word-break: break-all;
+      //width: 0.5rem;
+      //flex: 1rem;
+      @include dpr-output(
+              (margin-right, Space(2))
+      );
+      text-align: center;
+      i {
+        margin-bottom: -0.06rem;
+      }
+    }
+    input {
+      @include flex(1);
+       //width: auto !important;
+    }
+    .cell-widget {
+      text-align: right;
+      color: map_get($Colors,darklightest);
+      @include dpr-output(
+                (font-size, Font(s1)),
+                (margin-left, Space(2))
+      );
+    }
+
+  }
+
+  .jelly-block {
+    @include display-flex(column, center, center);
+    .icon-plus {
+      font-size: 1.5rem;
+      margin: 0.4rem 0;
+    }
+  }
+}
+
+
+.form-card {
+
+  @include dpr-output(
+    (font-size, Font(p1)),
+                          (margin, Space(3) 0)
+  );
+  .card-logo{
+    text-align: center;
+    margin: 0.8rem auto;
+    color: map_get($Colors,dark);
+    .avatar {
+      color: map_get($Colors,darklightest);
+      font-size: 1rem;
+      background-color: map_get($Colors,white);
+      overflow: hidden;
+      position: relative;
+      @include active-link();
+      @include border-radius();
+      @include box-shadow(map_get($Shadows,primary));
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      margin: 0.2rem auto;
+      img {
+        height: 100%;
+        width: 100%;
+        left: 0;
+        top:0;
+        position: absolute;
+      }
+    }
+
+
+  }
+  .card-row {
+    overflow: hidden;
+    text-align: center;
+    @include border-radius();
+    background-color: map_get($Colors,white);
+    @include dpr-output(
+                            (margin, Space(3) Space(3))
+    );
+    @include box-shadow(map_get($Shadows,primary));
+    .icon-row {
+      @include dpr-output((height,  Space(7)),
+                      (line-height,  Space(7))
+      );
+    }
+  }
+  .group-col {
+
+    @include dpr-output(
+                (padding, Space(3) Space(3) 0 Space(3))
+    );
+    label {
+      color: map_get($Colors,darklighter);
+      @include dpr-output(
+                              (font-size, Font(p1))
+      );
+    }
+  }
+  //.card-row, .avatar-row {
+  //    padd
+  //}
+}
+

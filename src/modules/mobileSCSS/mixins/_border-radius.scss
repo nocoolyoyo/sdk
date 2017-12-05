@@ -1,0 +1,30 @@
+//-----------------------
+//border-radius
+//-----------------------
+$_border-radius: $Border-radius;
+//单边圆角
+@mixin border-radius($radius: $_border-radius) {
+  border-radius: $radius;
+}
+@mixin border-top-right-radius($radius: $_border-radius) {
+  border-top-right-radius: $radius;
+}
+@mixin border-top-radius($radius: $_border-radius) {
+  border-top-left-radius: $radius;
+  border-top-right-radius: $radius;
+}
+
+@mixin border-right-radius($radius: $_border-radius) {
+  border-top-right-radius: $radius;
+  border-bottom-right-radius: $radius;
+}
+
+@mixin border-bottom-radius($radius: $_border-radius) {
+  border-bottom-right-radius: $radius;
+  border-bottom-left-radius: $radius;
+}
+
+@mixin border-left-radius($radius: $_border-radius) {
+  border-top-left-radius: $radius;
+  border-bottom-left-radius: $radius;
+}

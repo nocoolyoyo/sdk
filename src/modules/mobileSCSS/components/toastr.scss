@@ -1,0 +1,47 @@
+//-----------------------
+//通知组件
+//-----------------------
+//变量
+//$transition-duration-toastr: 0.3s;                //过渡动画时间
+$height-toastr: Space(6);//高度
+$font-toastr: Font(s1);//字体大小
+
+//通知条条
+.toastr {
+    position: fixed;
+    text-align: center;
+    @include box-sizing(border-box);
+    @include dpr-output(
+                  (line-height,$height-toastr),
+                  (height,$height-toastr),
+                  (height,$height-toastr),
+                  //(top,groupReves($height-toastr)),
+                  (font-size, $font-toastr)
+    );
+   @include ellipsis(1);
+    color: map_get($Colors,white);
+    background-color: map_get($Colors,graySilk);
+    display: block;
+    width: 100%;
+    z-index: 2;
+    //top:0;
+    opacity: 0;
+    @include transtion(all, 0.3s);
+    &.show {
+      opacity: 1;
+      @include transform(translateY(0));
+    }
+
+    @include transform(translateY(- Space(6,1)));
+    [data-dpr="2"] &{
+      @include transform(translateY(- Space(6,2)));
+    }
+    [data-dpr="3"] &{
+      @include transform(translateY(- Space(6,3)));
+    }
+}
+
+.page-with-toastr {
+
+}
+

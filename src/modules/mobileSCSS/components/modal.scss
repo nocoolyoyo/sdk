@@ -1,0 +1,105 @@
+//-----------------------
+//模态选择框
+//-----------------------
+//变量
+$bg-mask:  rgba(0, 0, 0, 0.5);              //遮罩颜色
+$bg-panel: map-get($Colors,white);              //背景色
+$font-color: map-get($Colors,slate);                    //导航条字体颜色
+$bg-space: map-get($Colors,graylightest);
+
+$height-list-item: Space(7);                    //条目高度
+
+$font-list-item: Font(p1);                    //条目字体
+$font-cell-item: Font(p2);                    //条目字体
+
+$box-shadow: map_get($Shadows, primary);     //主要阴影色
+
+$space-cell-updown: Space(5);                        //条目间距
+$space-list: Space(2);                        //条目间距
+
+$transition-duration-mask: 0.2s;                 //过渡动画时间
+$transition-duration-panel: 0.3s;                //过渡动画时间
+
+
+
+
+//遮罩
+.modal-mask {
+   position: fixed;
+   z-index: 1000;
+   top: 0;
+   right: 0;
+   left: 0;
+   bottom: 0;
+   background: $bg-mask;
+   opacity: 0;
+   @include transtion(opacity, $transition-duration-mask);
+}
+//列表对话框
+.modal-actionsheet {
+   //modal-actionsheet过渡动画
+   @include transform(translate(0, 100%));
+   @include backface-visibility(hidden);
+   background-color: $bg-panel;
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   z-index: 2000;
+   width: 100%;
+   text-align: center;
+   @include transtion(transform, $transition-duration-panel);
+   //列表类型
+   .list-menu{
+      .item {
+         background-color: $bg-panel;
+         @include dpr-output(
+                                 (font-size, $font-list-item),
+                                 (height, $height-list-item),
+                                 (line-height, $height-list-item)
+         );
+         @include border-bottom();
+      }
+   }
+   //九宫格类型
+   .cell-menu{
+      background-color: $bg-panel;
+      @include display-flex(row,flex-start, center);
+      @include dpr-output(
+            (padding, $space-cell-updown 0)
+      );
+      .item {
+         width: 25%;
+         i {
+            font-size: 1rem
+         }
+         .title {
+            @include dpr-output(
+                  (margin-top, $space-list),
+                  (font-size, $font-cell-item)
+            );
+         }
+      }
+   }
+   .action {
+      background-color: $bg-space;
+      @include dpr-output(
+         (padding-top, $space-list)
+      );
+      .item {
+         background-color: $bg-panel;
+         @include dpr-output(
+                                 (font-size, $font-list-item),
+                                 (height, $height-list-item),
+                                 (line-height, $height-list-item)
+         );
+         @include border-bottom();
+      }
+   }
+}
+//激活
+.modal-active {
+   @include transform(translate(0, 0));
+}
+.mask-active {
+   opacity: 1;
+}

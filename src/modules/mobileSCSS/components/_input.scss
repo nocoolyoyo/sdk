@@ -1,0 +1,306 @@
+//-----------------------
+//输入框
+//-----------------------
+$border-radius: $Border-radius;     //输入框圆角
+
+$border-outline-color: map-get($Colors, graylightest);      //输入框描边颜色
+$border-outline-value: 1px;      //输入框描边数值
+$border-outline: $border-outline-value solid $border-outline-color;      //输入框描边
+$space-side: Space(3);                //输入框两边间距
+
+$font-size-lg: Font(p1);                //大输入框字体
+$font-size-md: Font(p1);                //中输入框字体
+$font-size-sm: Font(p2);                //中输入框字体
+
+$height-lg-input: map-get($SpaceSpecals,6);                  //大输入框高度input
+$height-md-input: Space(7);                    //中输入框高度input
+$height-sm-input: Space(6);                //小输入框高度input
+
+$height-lg-outline-input: calc(#{$height-lg-input} - #{2*$border-outline-value});                      //大输入框高度input
+$height-md-outline-input: groupCalc(Space(7),2*$border-outline-value, minus);                //中线框输入框高度input
+$height-sm-outline-input: groupCalc(Space(6),2*$border-outline-value, minus);                //小线框输入框高度input
+
+$space-textarea-updown: (10px 20px 30px);                //输入框上下间距，textarea特殊使用
+$space-textarea-updown-2: (10px*2 20px*2 30px*2);                //输入框高度，textarea特殊使用
+$space-textarea-outline-updown:  (20px + 2*$border-outline-value, 40px + 2*$border-outline-value, 60px + 2*$border-outline-value);  //输入框上下间距，textarea特殊使用
+$height-lg-textarea: map-get($SpaceSpecals,10);                   //大输入框高度textarea
+$height-md-textarea: arrayCalc(Space(7), $space-textarea-updown-2,minus);                    //中输入框高度textarea
+$height-sm-textarea: arrayCalc(Space(6), $space-textarea-updown-2,minus);                  //小输入框高度textarea
+
+$height-lg-outline-textarea: calc(#{$height-lg-textarea} - #{2*$border-outline-value});                    //大线框输入框高度textarea
+$height-md-outline-textarea: arrayCalc(Space(7),$space-textarea-outline-updown,minus);               //中线框输入框高度textarea
+//$height-sm-outline-textarea: arrayCalc(Space(6),$space-textarea-outline-updown,minus);                //小线框输入框高度textarea
+$height-sm-outline-textarea: Space(6);                //小线框输入框高度textarea
+
+$lineHeight-textarea: 1.37;                //textare的lineheight
+
+$font-color-text: map-get($Colors, dark);      //输入框字体颜色
+$primary-color: map-get($Colors, white);      //输入框背景颜色
+$outline-color: map-get($Colors, milk);        //输入框背景颜色
+$color-placeholder: map-get($Colors, darklightest);   //输入框占位字颜色
+
+
+$space-widage: Space(2);                //小输入框label的边距
+$lineHeight-widage-i: 2.5;                //小输入框label的lineheight
+
+$width-input-label: 2.3rem;
+//$box-shadow: map_get($Shadows, primary-blur);                //卡片式输入框阴影
+
+//
+// placeHolder样式调整
+//
+@mixin _placeHolder() {
+  &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:$color-placeholder
+  }
+  &::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:$color-placeholder
+  }
+
+  &:-ms-input-placeholder{
+    color:$color-placeholder
+  }
+
+  &::-webkit-input-placeholder{
+    color:$color-placeholder
+  }
+}
+//
+// 输入框样式重置
+//
+input, textarea {
+  //display: inherit;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  //border: none;
+  outline:none;
+  -webkit-appearance:none;
+  border: none;
+  &:focus,
+  &.focus {
+    text-decoration: none;
+    outline: 0;
+  }
+  background-color: transparent;
+  @include _placeHolder();
+}
+
+textarea {
+  resize: none;
+  @include no-scrollbar();
+}
+
+
+//
+// input基础
+//
+@mixin _input() {
+  height: auto;
+  @include display-flex(row,space-between,center);
+  @include dpr-output(
+        (padding, 0 $space-side)
+  )
+}
+@mixin _input-primary(){
+  @include _input();
+  //@include box-shadow($box-shadow);
+  @include border-radius($border-radius);
+  color: $font-color-text;   //输入框文字颜色
+  background-color: $primary-color;//输入框主要颜色
+}
+
+@mixin _input-outline(){
+  @include _input();
+  @include box-sizing();
+  @include border-radius($border-radius);
+  border: $border-outline;
+  //@include border($border-outline-color,$border-radius);
+  color: $font-color-text;   //输入框文字颜色
+  background-color: $outline-color;//输入框主要颜色
+}
+// input形态
+//大
+.input-primary-lg {
+  @include _input-primary();
+  //不同形态的按钮，有边框下需要减去1px高度，所以大小的样式需要单独写
+  input{
+    height: $height-lg-input;
+    @include dpr-output(
+                            (font-size, $font-size-lg)
+    )
+  }
+}
+.input-primary-md {
+  text-align: left;
+  @include _input-primary();
+  .widge {
+    width: auto;
+    @include dpr-output(
+                            (font-size, $font-size-md),
+                            (margin-right, $space-widage)
+    );
+    i {
+      line-height: $lineHeight-widage-i;
+    }
+  }
+  label {
+    width: $width-input-label;
+    color: map_get($Colors,darklighter);
+    @include dpr-output(
+                            (font-size, Font(p1)),
+                            (margin-right, $space-widage)
+    );
+  }
+  input{
+    @include flex(1);
+    @include dpr-output(
+                            (font-size, $font-size-md),
+                            (height, $height-md-input)
+    )
+  }
+}
+.input-outline-lg {
+  @include _input-outline();
+  input{
+    height: $height-lg-outline-input;
+    @include dpr-output(
+                            (font-size, $font-size-lg)
+    )
+  }
+}
+.input-outline-md {
+  @include _input-outline();
+  .widge {
+    width: auto;
+    @include dpr-output(
+                            (margin-right, $space-widage)
+    )
+  }
+  input {
+    @include dpr-output(
+                            (font-size, $font-size-md),
+        (height, $height-md-outline-input)
+    )
+  }
+}
+.input-outline-sm {
+  @include _input-outline();
+  .widge {
+    width: auto;
+    @include dpr-output(
+                            (margin-right, $space-widage)
+    )
+  }
+  input {
+    @include dpr-output(
+                            (font-size, $font-size-sm),
+                            (height, $height-sm-outline-input)
+    )
+  }
+}
+//
+// textarea基础
+//
+@mixin _textarea() {
+  height: auto;
+  line-height: $lineHeight-textarea;
+  @include display-flex(column,center,center);
+  //@include dpr-output(
+  //    (padding, $space-textarea-updown $space-side)
+  //)
+}
+@mixin _textarea-primary(){
+  @include _textarea();
+  //@include box-shadow($box-shadow);
+  @include border-radius($border-radius);
+  color: $font-color-text;   //输入框文字颜色
+  background-color: $primary-color;//输入框主要颜色
+}
+
+@mixin _textarea-outline(){
+  @include _textarea();
+  @include box-sizing();
+  @include border-radius($border-radius);
+  border: $border-outline;
+  //@include border($border-outline-color,$border-radius);
+  color: $font-color-text;   //输入框文字颜色
+  background-color: $outline-color;//输入框主要颜色
+}
+// textarea形态
+//大
+.textarea-primary-lg {
+  @include _textarea-primary();
+  //不同形态的按钮，有边框下需要减去1px高度，所以大小的样式需要单独写
+  textarea{
+    //height: $height-lg-textarea;
+    @include dpr-output(
+          (font-size, $font-size-lg)
+    )
+  }
+}
+
+.textarea-primary-md {
+  @include _textarea-primary();
+  text-align: left;
+  .widge {
+    width: auto;
+    @include dpr-output(
+                            (font-size, $font-size-md),
+                            (margin-right, $space-widage)
+    );
+    i {
+      line-height: $lineHeight-widage-i;
+    }
+  }
+  label {
+    width: $width-input-label;
+    color: map_get($Colors,darklighter);
+    @include dpr-output(
+                            (font-size, Font(p1)),
+                            (margin-right, $space-widage)
+    );
+  }
+
+  textarea{
+    @include flex(1);
+    @include dpr-output(
+          (font-size, $font-size-md)
+
+              //(height, $height-md-textarea)
+    );
+  }
+}
+.textarea-outline-lg {
+  @include _textarea-outline();
+  textarea{
+    //height: $height-lg-outline-textarea;
+    @include dpr-output(
+            (font-size, $font-size-lg)
+    )
+  }
+
+}
+.textarea-outline-md {
+  @include _textarea-outline();
+  textarea {
+    @include dpr-output(
+            (font-size, $font-size-md)
+            //(height, $height-md-outline-textarea)
+    )
+  }
+}
+.textarea-outline-sm {
+  @include _textarea-outline();
+
+    @include dpr-output(
+          (font-size, $font-size-sm),
+          (padding,0 Space(3)),
+          (min-height, $height-sm-outline-textarea)
+    );
+
+}
+//
+//附件样式
+//
+

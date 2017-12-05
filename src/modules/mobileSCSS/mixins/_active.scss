@@ -1,0 +1,35 @@
+//-----------------------
+//点击效果
+//-----------------------
+
+@mixin active-bg-darken($color) {
+  &:active {
+    background-color: darken($color, 10%);
+  }
+  @include transtion(background-color, 0.2s)
+}
+@mixin active-bg-lighten($color) {
+  &:active {
+    background-color: lighten($color, 10%);
+  }
+  @include transtion(background-color, 0.2s)
+}
+@mixin active-color-darken($color) {
+  &:active {
+    color: darken($color, 10%);
+  }
+  @include transtion(color, 0.2s)
+}
+@mixin active-color-lighten($color) {
+  &:active {
+    color: lighten($color, 10%);
+  }
+  @include transtion(color, 0.2s)
+}
+
+@mixin active-link() {
+  &:active {
+    opacity: 0.65;
+  }
+  @include transtion(opacity, 0.2s)
+}

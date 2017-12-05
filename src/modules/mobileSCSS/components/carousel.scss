@@ -1,0 +1,43 @@
+//-----------------------
+//模态选择框
+//-----------------------
+//变量
+
+$height-carousel-current-banner: 4rem;          //轮播图高度
+
+$font-carousel-title: Font(s1);         //轮播图描述字体颜色
+$color-carousel-title: map-get($Colors,white);         //轮播图描述字体颜色
+$bg-carousel-title: rgba(0, 0, 0, 0.4);         //轮播图描述北背景颜色
+$space-carousel-bt: Space(1);         //轮播图间距
+$space-carousel-lr: Space(3);         //轮播图间距
+//遮罩
+.carousel {
+   width: 100%;
+   overflow: hidden;
+
+   .swiper-slide {
+      @include border-radius();
+      @include box-shadow(map_get($Shadows,primary));
+      margin:0 0.3rem;
+      width: 90vw;
+      height: $height-carousel-current-banner;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      position: relative;
+      overflow: hidden;
+      .crousel-title {
+         bottom: 0;
+         position: absolute;
+         width: 90vw;
+         text-align: left;
+         color: $color-carousel-title;
+         background-color: $bg-carousel-title;
+         @include dpr-output(
+                     (font-size, $font-carousel-title),
+                      (padding, $space-carousel-bt $space-carousel-lr)
+         )
+      }
+   }
+
+}

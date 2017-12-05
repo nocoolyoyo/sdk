@@ -1,0 +1,44 @@
+//-----------------------
+//加载页面结构
+//-----------------------
+
+%page-loading-base {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+//发现页加载页
+.page-loading-find {
+  @extend %page-loading-base;
+  background-image: url("../style/images/loading-page-find.jpg")
+}
+//详情加载页
+.page-loading-article {
+  @extend %page-loading-base;
+  background-image: url("../style/images/loading-page-article.jpg")
+}
+//圈子详情加载页
+.page-loading-circle {
+  @extend %page-loading-base;
+  background-image: url("../style/images/loading-page-circle.jpg")
+}
+//圈子主页加载页
+.page-loading-circles {
+  @extend %page-loading-base;
+  background-image: url("../style/images/loading-page-circles.jpg")
+}
+//商会加载页
+.page-loading-commerce {
+  @extend %page-loading-base;
+  background-image: url("../style/images/loading-page-commerce.jpg")
+}
+//信息流加载页
+.page-loading-feed {
+  @extend %page-loading-base;
+  background-image: url("../style/images/loading-page-feed.jpg")
+}
+//我的主页加载页
+.page-loading-myzone {
+  @extend %page-loading-base;
+  background-image: url("../style/images/loading-page-myzone.jpg")
+}

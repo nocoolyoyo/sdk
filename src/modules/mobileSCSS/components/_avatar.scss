@@ -1,0 +1,569 @@
+//-----------------------
+// 头像，包含圈子头像，用户头像
+//-----------------------
+
+$font-size-lg: Font(p1);                //大头像字体
+$font-size-md: Font(p2);                //中头像字体
+$font-size-sm: Font(s1);                //小头像字体
+$font-size-xs: Font(s1);                //迷你头像字体
+
+$size-Sg: Space(13);                    //超大头像尺寸
+$size-lg: Space(12);                    //大头像尺寸
+$size-md: Space(11);                    //中头像尺寸
+$size-sm: Space(10);                    //小头像尺寸
+$size-xs: Space(9);                     //迷你头像高度
+
+$border-box: $Border-graylightest-1;  //图片盒子的border
+
+
+$v-color: map_get($Colors, warning);  //v标志颜色
+$v-bg: map_get($Colors, white);  //v标志背景色
+$v-border: 1px solid map_get($Colors, white);  //v标志背景色
+$size-widge-v-Sg: map_get($SpaceSpecals, 7);      //v标志超大头像尺寸
+$size-widge-v-lg:  map_get($SpaceSpecals, 8);       //v标志大头像尺寸
+$size-widge-v-md:  map_get($SpaceSpecals, 4);       //v标志中头像尺寸
+$size-widge-v-sm:  map_get($SpaceSpecals, 9);       //v标志小头像尺寸
+$size-widge-v-xs:  map_get($SpaceSpecals, 5);       //v标志迷你像尺寸
+
+//用户头像
+$font-title: Font(h2);    //用户名字体大小
+$font-note: Font(s1);    //用户身份字体大小
+$space-info-lg: Space(3);                     //头像左右间距
+$space-info-lg: Space(3);                     //头像左右间距
+
+
+
+@mixin _avatar {
+  position: relative;
+  background-color: map_get($Colors,graylightest);
+  img{
+    position: absolute;
+    left: 0;
+    top:0;
+    z-index:5;
+  }
+}
+
+.avatar {
+  @include _avatar()
+}
+
+//头像形态
+
+//圆形头像
+@mixin _avartar-circle {
+  border:$border-box;
+  border-radius: 50%;
+  @include box-sizing(border-box);
+  img{
+    border-radius: 50%;
+  }
+  .icon-v-label {
+    z-index: 6;
+    position: absolute;
+    right: 0;
+    bottom:0;
+    border: $v-border;
+    //color: $v-color;
+    background-color: $v-bg;
+    border-radius: 50%;
+  }
+  .icon-delete-circle {
+    z-index: 6;
+    position: absolute;
+    right: 0;
+    top:0;
+    border: $v-border;
+    border-radius: 50%;
+    background-color: $v-bg;
+  }
+  //background: url(data:image/png;base64,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);
+  //background-position: center;
+  //background-size: cover;
+}
+//圆形头像
+.avatar-circle{
+  @include _avartar-circle();
+}
+//圆角头像
+@mixin _avatar-square {
+  //background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJQAAACUCAIAAAD6XpeDAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA/VJREFUeNrsnUtP6kAUgK221A4PcYFu1JCoRIn//2e4xIVxYQwxUWM0IqVQ5Z7QhOT64JprmZ4p37cwtTT08THTc2amU+/8/HwN3GSdS4A8QB4gD3mAPEAeIA95gDxAHvIAeYA8QB7yAHmAPEAe8gB5gDzkAfIAeYA85AHyAHk/whgTBMGXH8n6jY0N5Gk9sfX1TqdzeHj4+SPP82T90dGRLCBPI77vi5soij4XvjAMZf2Ccok8LXwuXvM1UjqRVx6vyAPkAfKQB8gD5AHynMd3ND/L8usF7ZNhGGYLm5ubHzaTNdmCrK9UKrKQpun7+7t718G5GZCazWa73c49v76+vn58fKTaXC71en0ZLSONRoN73vKPeDkNki62c7p3xG9vbw59LQHLX9ze3o5Go3wLynQ6fX5+Rp6Nkvfw8ECeoFdeOENDl42kEEmSjMdj5P2bKIoODg6MMaqOajgc3tzcyF8Clm8JguD4+FibubXZWCY5sHnij7wv2NnZUTuoS0Kk3d1d5LmaKddqNeQtqjY1y8saQpH3NcoHwmobsORAnvfy8vL6+mp5p9VqtV6vk+f9ijRNr66uptOp/V2fnZ0pr8a1t21OJpNCzGW/G+UXR7s81wc1r7Q81wc1r7Q8cFiei91syKPadF9epVIpJGaRnep/ek97nicX8fT0VJJ0mwmDFHdjjO/7yMuh8GlrVKTaBOQhD5AHyIPSRJv9fn8wGFjuW6hWq/v7+8j7FePx+O7uzv5+4zhutVrzh8GoNv+HAts2i+pH5J5HwALIA+SBa/IKHMmpvytRu7wgCAp5vMMYo+2xEvfyPPn5d7tdidptTrUxnyoEeflczRJMCU3AAshDHiAPyhuwSKg5mUzspyj68zxfv7mLi4skSSzvV5K8k5MT5QmD9mozmbE6+y2VPP2dasgD5CEPkJcPPOLlsLwC26P1dyxoz/MkWW61WsPh0GaXkGir1Wr05+XA3t4eNSQBC/IAeYA85IGb+OU4jezFCB/SiewhlQ+Zovy7tbWFPEX0+/37+/sfbiyJYznSj5JUm3EcL2lj5KmrY5HnKi6+5xB5pAqAPEAe8gB5YBl7LSye50VRNB9bIAuyRqL2XLKuRqPx8zk5fzN75/b2thzzd7PDyLnEcWwtFbEkLwiCTqezvDlPrb0crd1uL94gTdPLy8vRaFSearPZbK7IbLW+78vJluqet1IvJrFWbVq6pk9PT/Yf0yoEuR1ae2u3pXtekiS9Xs8YU+55ASQEGwwG1t4gZS/alMpEToz4njwPkIc8QB4gD3mAPEAeIA95gDxAHvIAeYA8QB7yAHmAPEAe8gB5gDzkAfIAeYA85IFS/ggwAK7iA1INRCUeAAAAAElFTkSuQmCC);
+  //background-position: center;
+  //background-size: cover;
+  @include box-sizing(border-box);
+  border:$border-box;
+  @include border-radius();
+  img{
+    @include border-radius();
+  }
+  .icon-delete-square {
+    z-index: 6;
+    position: absolute;
+    right: 0;
+    top:0;
+    border: $v-border;
+    background-color: $v-bg;
+  }
+}
+//圆角头像
+.avatar-square{
+  @include _avatar-square();
+}
+
+//头像尺寸
+@mixin _avatar-sg {
+  @include dpr-output(
+                          (line-height, $size-Sg),
+                          (height, $size-Sg),
+                          (width, $size-Sg)
+  );
+  img {
+    @include dpr-output(
+                            (height, groupCalc($size-Sg, 2px, minus)),
+                            (width, groupCalc($size-Sg, 2px, minus))
+    );
+
+  }
+  .icon-v-label,.icon-delete-circle,.icon-delete-square {
+    font-size: $size-widge-v-Sg;
+  }
+}
+.avatar-sg {
+  @include _avatar-sg();
+}
+@mixin _avatar-lg {
+  @include dpr-output(
+          (line-height, $size-lg),
+        (height, $size-lg),
+        (width, $size-lg)
+  );
+
+  img{
+    @include dpr-output(
+              (height, groupCalc($size-lg,2px,minus)),
+              (width, groupCalc($size-lg,2px,minus))
+    );
+
+  }
+  .icon-v-label,.icon-delete-circle,.icon-delete-square {
+    font-size: $size-widge-v-lg;
+  }
+}
+.avatar-lg {
+  @include _avatar-lg()
+}
+@mixin _avatar-md {
+  @include dpr-output(
+                          (line-height, $size-md),
+                          (height, $size-md),
+                          (width, $size-md)
+  );
+  img{
+    @include dpr-output(
+                            (height, groupCalc($size-md,2px,minus)),
+                            (width, groupCalc($size-md,2px,minus))
+    );
+  }
+  .icon-v-label,.icon-delete-circle,.icon-delete-square {
+    font-size: $size-widge-v-md;
+  }
+
+}
+.avatar-md {
+  @include _avatar-md();
+}
+
+@mixin _avatar-sm{
+  @include dpr-output(
+                          (line-height, $size-sm),
+                          (height, $size-sm),
+                          (width, $size-sm)
+  );
+  img{
+    @include dpr-output(
+                            (height, groupCalc($size-sm,2px,minus)),
+                            (width, groupCalc($size-sm,2px,minus))
+    );
+  }
+  .icon-v-label,.icon-delete-circle,.icon-delete-square {
+    font-size: $size-widge-v-sm;
+  }
+}
+.avatar-sm {
+  @include _avatar-sm()
+}
+
+@mixin _avatar-xs {
+  @include dpr-output(
+                          (line-height, $size-xs),
+                          (height, $size-xs),
+                          (width, $size-xs)
+  );
+  img{
+    @include dpr-output(
+                            (height, groupCalc($size-xs,2px,minus)),
+                            (width, groupCalc($size-xs,2px,minus))
+    );
+  }
+  .icon-v-label,.icon-delete-circle,.icon-delete-square {
+    font-size: $size-widge-v-xs;
+    [data-dpr="1"] &{
+      -webkit-transform-origin: 100% 100%;
+      transform-origin: 100% 100%;
+      -webkit-transform: scale(0.8);
+      transform: scale(0.8);
+    }
+  }
+}
+.avatar-xs {
+  @include _avatar-xs();
+}
+
+
+//封装头像
+
+//超大信息头像组件
+.avatar-group-sg {
+  line-height: 1;
+  @include display-flex(row,flex-start,flex-start);
+  .avatar {
+    @include _avatar-sg();
+  }
+
+  .name-box {
+    @include flex(1);
+    overflow: hidden;
+    @include dpr-output(
+                            (margin-left, Space(4))
+    );
+    @include display-flex(row,flex-start,center);
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+  }
+  .name {
+    order:0;
+    color: map-get($Colors,dark);
+    font-weight: bold;
+    @include dpr-output(
+                            (font-size, Font(h1))
+    );
+    @include ellipsis(1)
+  }
+  .position {
+    color: map-get($Colors,darklightest);
+    @include flex(100%);
+    @include dpr-output(
+                            (margin-top, Space(1)),
+                            (font-size, Font(s1))
+    );
+    @include ellipsis(1)
+  }
+  .mark {
+    @include flex(auto);
+    color: map-get($Colors,graylighter);
+    @include dpr-output(
+                            (margin-left, Space(1)),
+                            (font-size, Font(p2))
+    );
+  }
+}
+
+//大号信息头像组件
+.avatar-group-lg {
+  line-height: 1;
+  @include display-flex(row,flex-start,center);
+
+  .avatar {
+    @include _avatar-lg();
+  }
+  .name-box {
+    @include flex(1);
+    @include dpr-output(
+                            (margin-left, Space(3))
+    );
+    overflow: hidden;
+    @include display-flex(row,flex-start,center);
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+  }
+  .name {
+    //flex: 1;
+    order:0;
+    //@include flex(1);
+    color: map-get($Colors,dark);
+    font-weight: bold;
+    @include dpr-output(
+                            (font-size, Font(h2))
+    );
+    @include ellipsis(1)
+  }
+  .position {
+    order:2;
+    //@include flex(1);
+    @include flex(100%);
+    color: map-get($Colors,darklightest);
+    @include dpr-output(
+                            (margin-top, Space(1)),
+                            (font-size, Font(p2))
+    );
+    @include ellipsis(1)
+  }
+  .mark {
+    order:1;
+    //@include flex(1);
+    color: map-get($Colors,graylighter);
+    @include dpr-output(
+                            (margin-left, Space(1)),
+                            (font-size, Font(p2))
+    );
+  }
+}
+//中等信息头像组件
+.avatar-group-md {
+  line-height: 1;
+  @include display-flex(row,flex-start,center);
+  .avatar {
+    @include _avatar-md();
+  }
+  .name-box {
+    @include flex(1);
+    overflow: hidden;
+    @include dpr-output(
+                            (margin-left, Space(2))
+    );
+    @include display-flex(row,flex-start,center);
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+  }
+  .name {
+    color: map-get($Colors,dark);
+    font-weight: bold;
+    @include dpr-output(
+        (font-size, Font(p1))
+    );
+    @include ellipsis(1)
+  }
+  .position {
+    @include flex(100%);
+    color: map-get($Colors,darklightest);
+    @include dpr-output(
+                            (margin-top, Space(1)),
+        (font-size, Font(s1))
+    );
+    @include ellipsis(1)
+  }
+  .mark {
+    color: map-get($Colors,graylighter);
+    @include dpr-output(
+                            (margin-left, Space(1)),
+                            (font-size, Font(p2))
+    );
+  }
+}
+//迷你信息头像组件
+.avatar-group-sm {
+  line-height: 1;
+  text-align: left;
+  @include display-flex(row,flex-start,center);
+  .avatar {
+    @include _avatar-sm();
+  }
+  .name-box {
+    overflow: hidden;
+    @include flex(1);
+    @include ellipsis(1);
+    @include display-flex(row,flex-start,center);
+    flex-wrap: nowrap;
+    -webkit-flex-wrap: nowrap;
+  }
+  .name {
+    font-weight: bold;
+    color: map-get($Colors,dark);
+    @include dpr-output(
+                            (font-size, Font(p2)),
+                            (margin-left, Space(2))
+    );
+  }
+  .position {
+    color: map-get($Colors,darklightest);
+    @include dpr-output(
+                            (font-size, Font(s1)),
+                            (margin-left, Space(2))
+    );
+    @include ellipsis(1)
+  }
+  .mark {
+    color: map-get($Colors,graylighter);
+    @include dpr-output(
+                            (margin-left, Space(2)),
+                            (font-size, Font(p2))
+    );
+  }
+}
+//迷你信息头像组件
+.avatar-group-xs {
+  line-height: 1;
+  text-align: left;
+  @include display-flex(row,flex-start,center);
+  .avatar {
+    @include _avatar-xs();
+  }
+  .name-box {
+    overflow: hidden;
+    @include flex(1);
+    @include ellipsis(1);
+    @include display-flex(row,flex-start,center);
+    flex-wrap: nowrap;
+    -webkit-flex-wrap: nowrap;
+  }
+  .name {
+    color: map-get($Colors,darklighter);
+    @include dpr-output(
+                            (font-size, Font(p2)),
+                            (margin-left, Space(1))
+    );
+    @include ellipsis(1);
+  }
+  .position {
+    color: map-get($Colors,darklightest);
+    @include dpr-output(
+                            (font-size, Font(s1)),
+                            (margin-left, Space(2))
+    );
+  }
+  .mark {
+    color: map-get($Colors,graylighter);
+    @include dpr-output(
+                            (margin-left, Space(2)),
+                            (font-size, Font(p2))
+    );
+  }
+}
+
+//中列表头像组件
+
+.avatar-item-md {
+  line-height: 1;
+  @include display-flex(column,center,center);
+  .avatar {
+    @include _avatar-md();
+  }
+  text-align: center;
+  .name-box {
+    overflow: hidden;
+    @include flex(1);
+    @include ellipsis(1);
+    @include display-flex(column,flex-start,center);
+    flex-wrap: nowrap;
+    -webkit-flex-wrap: nowrap;
+  }
+  .name {
+    order:0;
+    color: map-get($Colors,dark);
+    font-weight: bold;
+    @include dpr-output(
+                            (margin-top, Space(1)),
+            (font-size, Font(p2))
+    );
+    @include ellipsis(1)
+  }
+  .position {
+    order:1;
+    color: map-get($Colors,darklightest);
+    @include dpr-output(
+                            (margin-top, Space(1)),
+                            (font-size, Font(s1))
+    );
+    @include ellipsis(1)
+  }
+  .mark {
+    order:2;
+    color: map-get($Colors,graylighter);
+    @include ellipsis(1);
+    @include dpr-output(
+                            (margin-top, Space(1)),
+                            (font-size, Font(s1))
+    );
+  }
+}
+
+//大列表头像组件
+
+.avatar-item-lg {
+  line-height: 1;
+  @include display-flex(column,center,center);
+  .avatar {
+    @include _avatar-lg();
+  }
+  text-align: center;
+  .name-box {
+    overflow: hidden;
+    @include flex(1);
+    @include ellipsis(1);
+    @include display-flex(column,flex-start,center);
+    flex-wrap: nowrap;
+    -webkit-flex-wrap: nowrap;
+  }
+  .name {
+    order:0;
+    color: map-get($Colors,dark);
+    font-weight: bold;
+    @include dpr-output(
+            (margin-top, Space(3)),
+            (font-size, Font(h1))
+    );
+    @include ellipsis(1)
+  }
+  .position {
+    order:1;
+    margin-top: 0.03rem;
+    color: map-get($Colors,darklightest);
+    @include dpr-output(
+                            (margin-top, Space(1)),
+                  (font-size, Font(s2))
+    );
+    @include ellipsis(1)
+  }
+  .mark {
+    order:2;
+    margin-top: 0.03rem;
+    color: map-get($Colors,graylighter);
+    @include ellipsis(1);
+    @include dpr-output(
+                  (margin-top, Space(1)),
+                  (font-size, Font(s1))
+    );
+  }
+}
+
+
+//
+//头像相关按钮
+//
+.avatar-plus-normal {
+  color: map_get($Colors,darklightest);
+  background-color: transparent;
+  @include dpr-output(
+                          (font-size, $size-md)
+  );
+  @include active-link();
+}
+
+//
+//头像相关按钮
+//
+.avatar-plus-md {
+  color: map_get($Colors,darklightest);
+  background-color: transparent;
+  @include dpr-output(
+                          (font-size, $size-md)
+  );
+  @include active-link();
+
+}
+
+
+
+
+
+

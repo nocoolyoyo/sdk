@@ -1,0 +1,226 @@
+//-----------------------
+// 按钮与链接按钮
+//-----------------------
+$font-color-white:  map-get($Colors, white);      //按钮字体颜色
+
+$border-radius: $Border-radius;     //按钮圆角
+
+$font-size-block: Font(p1);                //块级按钮字体
+$font-size-lg: Font(p1);                //大按钮字体
+$font-size-md: Font(p2);                //中按钮字体
+$font-size-sm: Font(s1);                //小按钮字体
+$font-size-xs: Font(s1);                //迷你按钮字体
+
+$space-side-lg: map-get($SpaceSpecals,1);                   //大按钮两边宽度
+$space-side-md: map-get($SpaceSpecals,2);                 //中按钮两边宽度
+$space-side-sm: map-get($SpaceSpecals,8);                 //小按钮两边宽度
+$space-side-xs: map-get($SpaceSpecals,6);                  //迷你按钮两边宽度
+
+$height-lg: Space(7);                  //大按钮高度
+$height-md: Space(6);                    //中按钮高度
+$height-sm: Space(5);                //小按钮高度
+$height-xs: Space(4);                  //迷你按钮高度
+
+$box-shadow: map_get($Shadows, primary-bold);  //按钮投影
+
+
+$primary-color: map-get($Colors,primary);      //按钮颜色
+$default-outline-color: map-get($Colors,darklighter);      //线框按钮颜色
+$disabled-color: map-get($Colors,graylightest);      //禁用按钮颜色
+
+
+//重置
+//
+//
+
+button  {
+  outline:none;
+  -webkit-appearance:none;
+  border: none;
+  padding: 0;
+  background-color: transparent;
+}
+//
+//图标按钮重置
+//
+//
+
+
+//
+// 按钮基础
+//
+.btn {
+  text-align: center;
+  line-height: 1.2;
+  //display: inline-block;
+  display: inline-block;
+  font-weight: normal;
+  white-space: nowrap;
+  vertical-align: middle;
+  @include user-select(none);
+
+  &:focus,
+  &.focus {
+    text-decoration: none;
+    outline: 0;
+  }
+
+  &:active,
+  &.active {
+    opacity: .65;
+    @include transtion(opacity,0.2s)
+  }
+
+  //禁用样式
+  &.disabled,
+  &:disabled {
+    color: $font-color-white;
+    background-color: $disabled-color;
+    border: none;
+    &:after {
+      border: none
+    }
+    @include box-shadow(none);
+  }
+}
+
+//
+// 按钮形态
+//
+.btn-primary {
+  @include box-shadow($box-shadow);
+  @include border-radius();
+  color: $font-color-white;   //按钮文字颜色
+  background-color: $primary-color;//按钮主要颜色
+}
+// 线框按钮
+.btn-primary-outline {
+  @include border-radius();
+  @include box-sizing();
+  @include border($default-outline-color);
+  color: $default-outline-color;   //按钮文字颜色
+  background-color: transparent;//按钮主要颜色
+}
+.btn-outline-danger {
+
+}
+
+//
+// 按钮尺寸
+//
+.btn-lg { //大号按钮
+ @include dpr-output(
+     (font-size, $font-size-lg),
+     (height, $height-lg),
+     (line-height, $height-lg),
+     (padding, 0 $space-side-lg)
+ )
+}
+.btn-md { //普通按钮
+  //min-width: 4.8rem;
+  @include dpr-output(
+        (font-size, $font-size-md),
+        (height, $height-md),
+        (line-height, $height-md),
+        (padding, 0 $space-side-md)
+  )
+}
+.btn-sm { //小号按钮
+  @include dpr-output(
+      (font-size, $font-size-sm),
+      (height, $height-sm),
+      (line-height, $height-sm),
+      (padding, 0 $space-side-sm)
+  )
+}
+.btn-xs { //迷你按钮
+  @include dpr-output(
+      (font-size, $font-size-xs),
+      (height, $height-xs),
+      (line-height, $height-xs),
+      (padding, 0 $space-side-xs)
+  )
+}
+
+.btn-block {      //块级按钮
+  display: block;
+  line-height: 2.55555556;
+  width: 100%;
+  box-shadow: none;
+  border-radius: 0;
+  @include dpr-output(
+                  (font-size, $font-size-block)
+  )
+}
+
+
+
+
+
+
+
+//
+// 链接基础
+//
+//自定样式重置
+$color-link-default: map_get($Colors,darklightest);
+$color-link-pure:  map_get($Colors,dark);
+$color-link-primary:  map_get($Colors,primary);
+a {
+  text-decoration:none;
+  outline: none;
+  color: $color-link-primary ;//默认颜色
+  @include active-link();
+}
+.btn-link {
+  text-align: center;
+  line-height: 1.2;
+  //display: inline-block;
+  display: inline-block;
+  font-weight: normal;
+  white-space: nowrap;
+  vertical-align: middle;
+  @include user-select(none);
+}
+//
+// 链接形态
+//
+.btn-link-primary {
+  color: $color-link-primary;   //按钮文字颜色
+  @include active-bg-lighten($color-link-primary)
+}
+.btn-link-default {
+  color: $color-link-default;   //按钮文字颜色
+  @include active-bg-darken($color-link-default)
+}
+.btn-link-pure {
+  color:$color-link-pure ;   //按钮文字颜色
+  @include active-bg-darken(map_get($Colors,white));
+}
+
+.btn-link-md {
+  @include dpr-output(
+                          (font-size, $font-size-md),
+                          (height, $height-md),
+                          (line-height, $height-md)
+  )
+}
+.btn-link-lg { //大号按钮
+  @include dpr-output(
+                          (font-size, $font-size-lg),
+                          (height, $height-lg),
+                          (line-height, $height-lg)
+  )
+}
+
+
+.btn-link-block {      //块级链接
+  display: block;
+  height: 100%;
+  width: 100%;
+  box-shadow: none;
+  border-radius: 0;
+  @include dpr-output(
+            (font-size, $font-size-block)
+  )
+}

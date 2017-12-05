@@ -1,0 +1,192 @@
+//-----------------------
+//导航条组件
+//-----------------------
+//变量
+$bg-headerbar: map-get($Colors,white);              //背景色
+$font-color: map-get($Colors,slate);                    //导航条字体颜色
+$color-active: map-get($Colors,primary);         //颜色激活样式
+
+
+$height: Space(7);                    //导航条高度
+$font-size: Font(p1);                    //导航条字体
+
+$space-side: Space(3);                         //导航条两边间距
+$item-active-slider-height: 0.05rem;             //颜色激活滚动条高度
+$space-item-feed: Space(6);                         //信息流导航条item间距
+
+$box-shadow: map_get($Shadows, primary);    //主要阴影
+
+//mixins导航原型
+@mixin _headerbar-base(){
+   @include box-shadow($box-shadow);
+   color: $font-color;
+   background-color: $bg-headerbar;
+}
+header {
+   @include _headerbar-base();
+}
+//导航条
+.nav-bar {
+   @include user-select(none);
+   @include dpr-output(
+       (font-size, $font-size),
+       (height, $height),
+       (line-height, $height)
+   );
+   @include display-flex(row,space-between,center);
+   text-align: center;
+   a.sbb-icon {
+      color: inherit;
+      height: inherit;
+      text-align: center;
+      line-height: inherit;
+      @include dpr-output(
+            (width, $height)
+      );
+      @include active-link();
+   }
+   .holder {
+      height: inherit;
+      text-align: center;
+      line-height: inherit;
+      @include dpr-output(
+                              (width, $height)
+      );
+   }
+   .holder2 {
+      height: inherit;
+      text-align: center;
+      line-height: inherit;
+      @include dpr-output(
+                              (width, groupCalc($height, 2, multi))
+      );
+   }
+   .center-with-btn {
+      @include display-flex(row,space-between,center);
+   }
+   .center {
+      @include ellipsis(1);
+      text-align: center;
+      color: map_get($Colors,dark);
+      @include flex(1);
+      //@include display-flex(row,space-between,center);
+     // 文字导航下的样式
+
+      .title {
+         text-overflow: ellipsis;
+         overflow: hidden;
+         @include flex(1);
+         @include dpr-output(
+                        (font-size, $font-size)
+         );
+         padding: 0 !important;
+         margin: 0 !important;
+      }
+
+   }
+}
+//导航条-沉浸式
+.nav-bar-sink{
+   background-color: transparent;
+   position: absolute;
+   width: 100%;
+   top:0;
+   left:0;
+   .center {
+     opacity: 0;
+      @include transtion(all, 0.3s);
+   }
+   box-shadow: none;
+   @include transtion(all, 0.3s);
+
+}
+
+//导航条-圈子特殊
+$size-avatar-sm: Space(10);                    //小头像尺寸
+.nav-bar-circle {
+   @include box-shadow(none);
+   position: relative;
+   box-shadow: none !important;
+   .center {
+      .avatar {
+         //z-index: 1001;
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         @include transform(scale(2,2), 50% 0);
+         @include dpr-output(
+                                 (margin-top, groupReves(groupCalc($size-avatar-sm, 2 , division))),
+                                 (margin-left, groupReves(groupCalc($size-avatar-sm, 2 , division)))
+         )
+      }
+   }
+}
+//标签页条-信息流样式
+.tabs-bar-feed {
+   @include user-select(none);
+   @include dpr-output(
+         (padding, 0 $space-side),
+         (font-size, $font-size),
+         (height, $height),
+         (line-height, $height)
+   );
+   @include display-flex(row,center,center);
+   .tab-item {
+      //item激活样式
+      &:nth-child(2) {
+         @include dpr-output(
+            (margin, 0 $space-item-feed)
+         );
+      }
+      &.active {
+         color: $color-active;
+         position: relative;
+         &:after {
+            position: absolute;
+            height: $item-active-slider-height;
+            background-color: $color-active;
+            width: 100%;
+            content: ' ';
+            bottom: 0;
+            left: 0;
+         }
+      }
+   }
+}
+
+//标签页条
+.tabs-bar {
+   background-color: map_get($Colors,white);
+   @include user-select(none);
+   @include dpr-output(
+      (padding, 0 $space-side),
+      (font-size, $font-size),
+      (height, $height),
+      (line-height, $height)
+   );
+   @include display-flex(row,space-around,center);
+   .tab-item {
+      //item激活样式
+      &.active {
+         color: $color-active;
+         position: relative;
+         &:after {
+            position: absolute;
+            height: $item-active-slider-height;
+            background-color: $color-active;
+            width: 100%;
+            content: ' ';
+            bottom: 0;
+            left: 0;
+         }
+      }
+   }
+}
+
+//搜索页条
+.search-bar {
+}
+
+
+
+

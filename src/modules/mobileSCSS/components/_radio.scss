@@ -1,0 +1,93 @@
+//-----------------------
+// radio按钮开关
+//-----------------------
+
+$height-switch: Space(4);
+$width-switch: Space(7);
+
+$height-switch: (20px, 40px, 60px);
+$width-switch: (36px,72px, 108px);
+$transform-switch: (16px,32px, 48px);
+%switch-base {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  @include box-sizing();
+}
+
+.sbb-switch {
+  @extend  %switch-base;
+  position: relative;
+  @include dpr-output(
+                          (width, $width-switch),
+                  (height, $height-switch)
+  );
+  border: 1px solid #DFDFDF;
+  outline: 0;
+  border-radius: 999px;
+  box-sizing: border-box;
+  background-color: #DFDFDF;
+  -webkit-transition: background-color 0.1s, border 0.1s;
+  transition: background-color 0.1s, border 0.1s;
+}
+
+
+.sbb-switch:before {
+  content: " ";
+  position: absolute;
+  top: 0;
+  left: 0;
+  //width: 50px;
+  //height: 30px;
+  @include dpr-output(
+                          (width, groupCalc($width-switch, 2px, minus)),
+                          (height,groupCalc($height-switch, 2px, minus))
+  );
+  border-radius: 999px;
+  background-color: #FDFDFD;
+  -webkit-transition: -webkit-transform 0.35s cubic-bezier(0.45, 1, 0.4, 1);
+  transition: -webkit-transform 0.35s cubic-bezier(0.45, 1, 0.4, 1);
+  transition: transform 0.35s cubic-bezier(0.45, 1, 0.4, 1);
+  transition: transform 0.35s cubic-bezier(0.45, 1, 0.4, 1), -webkit-transform 0.35s cubic-bezier(0.45, 1, 0.4, 1);
+}
+.sbb-switch:after {
+  content: " ";
+  position: absolute;
+  top: 0;
+  left: 0;
+  //width: 30px;
+  //height: 30px;
+  @include dpr-output(
+                          (width, groupCalc($height-switch, 2px, minus)),
+                          (height,groupCalc($height-switch, 2px, minus))
+  );
+  border-radius: 999px;
+  background-color: #FFFFFF;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  -webkit-transition: -webkit-transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35);
+  transition: -webkit-transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35);
+  transition: transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35);
+  transition: transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35), -webkit-transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35);
+}
+.sbb-switch:checked:after {
+  -webkit-transform: translateX(nth($transform-switch,1));
+  transform: translateX(nth($transform-switch,1));
+  [data-dpr="2"] &{
+    -webkit-transform: translateX(nth($transform-switch,2));
+    transform: translateX(nth($transform-switch,2));
+  }
+  [data-dpr="3"] &{
+    -webkit-transform: translateX(nth($transform-switch,3));
+    transform: translateX(nth($transform-switch,3));
+  }
+}
+.sbb-switch:checked:before {
+  -webkit-transform: scale(0);
+  transform: scale(0);
+}
+.sbb-switch:checked{
+  border-color: map_get($Colors,primary);
+  background-color: map_get($Colors,primary);
+}

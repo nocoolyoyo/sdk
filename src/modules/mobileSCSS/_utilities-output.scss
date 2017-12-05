@@ -1,0 +1,256 @@
+//-----------------------
+//常规样式输出，用于特殊调整
+//-----------------------
+
+//
+// 颜色
+//
+@each $item in $Colors {
+  $name: nth($item,1);
+  $value: nth($item,2);
+  .color-#{$name} {
+    color: $value !important;
+  }
+}
+.transparent {
+  opacity: 0;
+}
+//
+// 背景色
+//
+@each $item in $Colors {
+  $name: nth($item,1);
+  $value: nth($item,2);
+  .bg-#{$name} {
+    background-color: $value !important;
+  }
+}
+.bg-transparent {
+  background-color: transparent;
+}
+
+//
+// 阴影
+//
+@each $item in $Shadows {
+  $name: nth($item,1);
+  $value: nth($item,2);
+  //类名输出
+  .shadow-#{$name} {
+    @include box-shadow($value)
+  }
+  //基类输出
+  %shadow-#{$name} {
+    @include box-shadow($value)
+  }
+}
+//
+// 点击效果
+//
+.active-link {  //透明点击效果
+  @include active-link();
+}
+
+
+////
+//// 字体大小
+////
+//
+//@each $item in $Fonts {
+//  $name: nth($item,1);
+//  $value: nth($item,2);
+//  .txt-#{$name} {
+//    color: $value
+//  }
+//}
+//
+//间距
+//
+@each $prop, $abbrev in (margin: m, padding: p) {
+  @each $size, $length in $Spaces {
+    //@debug $size;
+    //@debug length($length);
+
+    .#{$abbrev}-#{$size}  {
+      @include dpr-output((important, #{$prop}, $length $length))
+    }
+    .#{$abbrev}t-#{$size} {
+      @include dpr-output((important, #{$prop}-top, $length))
+    }
+    .#{$abbrev}r-#{$size} {
+      @include dpr-output((important, #{$prop}-right, $length))
+    }
+    .#{$abbrev}b-#{$size} {
+      @include dpr-output((important, #{$prop}-bottom, $length))
+    }
+    .#{$abbrev}l-#{$size} {
+      @include dpr-output((important, #{$prop}-left, $length))
+    }
+    .#{$abbrev}x-#{$size} {
+      @include dpr-output(
+          (important, #{$prop}-right, $length),
+          (important, #{$prop}-left, $length)
+      )
+    }
+    .#{$abbrev}y-#{$size} {
+      @include dpr-output(
+          (important, #{$prop}-top, $length),
+          (important, #{$prop}-bottom, $length)
+      )
+    }
+    //负值-用于特殊矫位
+    $newlength:();
+    //@debug $length;
+    @each $val in $length {
+
+      $newlength: append($newlength, -1*$val, comma)
+    }
+    .#{$abbrev}t-#{$size}-minus {
+      @include dpr-output((important,#{$prop}-top, $newlength))
+    }
+    .#{$abbrev}r-#{$size}-minus {
+      @include dpr-output((important,#{$prop}-right, $newlength))
+    }
+    .#{$abbrev}b-#{$size}-minus {
+      @include dpr-output((important,#{$prop}-bottom, $newlength))
+    }
+    .#{$abbrev}l-#{$size}-minus {
+      @include dpr-output((important,#{$prop}-left, $newlength))
+    }
+
+  }
+  //
+  //0边距
+  //
+  .#{$abbrev}t-0 {
+    #{$prop}-top: 0 !important;
+  }
+  .#{$abbrev}b-0 {
+    #{$prop}-bottom: 0 !important;
+  }
+  .#{$abbrev}l-0 {
+    #{$prop}-left: 0 !important;
+  }
+  .#{$abbrev}r-0 {
+    #{$prop}-right: 0 !important;
+  }
+}
+
+//
+//字体
+//
+@each $size, $length in $Fonts {
+  $abbrev: font;
+  $prop: font-size;
+
+
+  .#{$abbrev}-#{$size} {
+    @include dpr-output((important,#{$prop}, $length))
+  }
+}
+
+//
+//特殊间距
+//
+@each $prop, $abbrev in (margin: sm, padding: sp) {
+  @each $size, $length in $SpaceSpecals {
+
+    .#{$abbrev}-#{$size}  {
+      #{$prop}: $length !important;
+    }
+    .#{$abbrev}t-#{$size} {
+      #{$prop}-top: $length !important;
+    }
+    .#{$abbrev}r-#{$size} {
+      #{$prop}-right:$length !important;
+    }
+    .#{$abbrev}b-#{$size} {
+      #{$prop}-bottom:$length !important;
+    }
+    .#{$abbrev}l-#{$size} {
+      #{$prop}-left:$length !important;
+    }
+    .#{$abbrev}x-#{$size} {
+      #{$prop}-right: $length !important;
+      #{$prop}-left: $length !important;
+    }
+    .#{$abbrev}y-#{$size} {
+      #{$prop}-top: $length !important;
+      #{$prop}-bottom: $length !important;
+    }
+  }
+}
+
+
+//
+//文字行数控制
+//
+@for $i from 1 through $ellipsis-lines {
+
+  .ellipsis-#{$i} {
+    @include ellipsis($i);
+  }
+}
+
+
+//
+//flex布局
+//
+@each $prop, $abbrev in (
+        row-between-center: (row, space-between, center),
+        row-between-start: (row, space-between, flex-start),
+        row-start-center: (row, flex-start, center),
+        row-start-start: (row, flex-start, flex-start),
+        row-around-center: (row, space-around, center),
+        col-start-center: (column, flex-start, center),
+        col-center-center: (column, center, center),
+        col-center-start: (column, center, flex-start),
+        col-around-start: (column, space-around, center)) {
+  .#{$prop} {
+    @include display-flex-important(#{nth($abbrev,1)}, #{nth($abbrev,2)}, #{nth($abbrev,3)});
+  }
+}
+
+//
+//点击效果
+//
+//@each $prop, $abbrev in (color: (row, space-between, center)) {
+//  .#{$prop} {
+//    @include display-flex(#{nth($abbrev,1)}, #{nth($abbrev,2)}, #{nth($abbrev,3)});
+//  }
+//}
+@each $item in $Colors {
+  $name: nth($item,1);
+  $value: nth($item,2);
+  .active-color-#{$name}:active {
+    color: $value !important;
+  }
+}
+
+
+//
+//显示类
+//
+.hide {
+  display: none;
+}
+.unvisible {
+  opacity:0;
+  //@include transtion(all, 0.1s)
+}
+.visible {
+  opacity:1;
+  //@include transtion(all, 0.1s)
+}
+//
+//动画
+//
+.slide-in-right {
+  animation: slideInRight 0.2s ease;
+}
+.slide-out-right {
+  animation: slideOutRight 0.2s ease;
+}
+.fade-in {
+  animation: fadeIn 0.2s ease;
+}

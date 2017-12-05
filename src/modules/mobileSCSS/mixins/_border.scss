@@ -1,0 +1,114 @@
+@mixin border-bottom($color: map_get($Colors, graylightest),$size:1px) {
+  position: relative;
+  &:after {
+    content: " ";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: $size;
+    border-bottom: $size solid $color;
+    color: $color;
+    -webkit-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+  }
+}
+@mixin border-top($color:map_get($Colors, graylightest),$size:1px) {
+  position: relative;
+  &:before {
+    content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: $size;
+    border-bottom: $size solid $color;
+    color: $color;
+    -webkit-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+  }
+}
+@mixin border-center($box-height: 20px,$color:map_get($Colors, graylightest),$size:1px) {
+  $border-position: $box-height/2;
+  position: relative;
+  &:before {
+    content: " ";
+    position: absolute;
+    left: 0;
+    bottom: $border-position;
+    right: 0;
+    height: $size;
+    border-bottom: $size solid $color;
+    color: $color;
+    -webkit-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+  }
+}
+
+@mixin border($color:map_get($Colors, graylightest),$border-radius:$Border-radius) {
+  position: relative;
+  &:after {
+    content: " ";
+    width: 200%;
+    height: 200%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px solid $color;
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    box-sizing: border-box;
+    @if $border-radius==round {
+      border-radius: 999px;
+    }@else{
+      border-radius: $border-radius*2;
+    }
+  }
+}
+
+@mixin border-self($color:map_get($Colors, graylightest),$border-radius:$Border-radius) {
+  content: " ";
+  width: 200%;
+  height: 200%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 1px solid $color;
+  -webkit-transform: scale(0.5);
+  transform: scale(0.5);
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  box-sizing: border-box;
+  @if $border-radius==round {
+    border-radius: 999px;
+  }@else{
+    border-radius: $border-radius*2;
+  }
+}
+
+@mixin border-round($color:map_get($Colors, graylightest)) {
+  position: relative;
+  &:after {
+  content: " ";
+  width: 200%;
+  height: 200%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 1px solid $color;
+  -webkit-transform: scale(0.5);
+  transform: scale(0.5);
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  box-sizing: border-box;
+  border-radius: 999px;
+  }
+}

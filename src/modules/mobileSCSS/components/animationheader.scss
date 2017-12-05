@@ -1,0 +1,87 @@
+//-----------------------
+//动态头部
+//-----------------------
+//变量
+$bg-color: map-get($Colors,white);              //背景色
+$font-color: map-get($Colors,slate);                    //导航条字体颜色
+$color-active: map-get($Colors,primary);         //颜色激活样式
+
+$height-media-header: Space(7);                    //导航条高度
+$font-media-header: Font(p1);                    //导航条字体
+
+$box-shadow: map_get($Shadows, primary);    //主要阴影
+
+//mixins导航原型
+@mixin _headerbar-base(){
+  @include box-shadow($box-shadow);
+  color: $font-color;
+  background-color: $bg-color;
+}
+
+//$height-refresher: 2rem;   //高度
+//.page-refresher {
+//    background-color: map_get($Colors,milk);
+//    position: absolute;
+//    display: block;
+//    width: 100%;
+//    top: -$height-refresher;
+//    z-index: 3;
+//   img {
+//      display: block;
+//      margin: 0 auto;
+//      height: $height-refresher;
+//      width: auto;
+//   }
+//}
+
+//大图圈子头部导航
+$space-media-header-collapse-box-sbb_arrow_down-l: 0.2rem;
+.animation-banner {
+    background-color: map_get($Colors,white);
+    //transform: translateY(-300px);
+    position: absolute;
+    display: block;
+    width: 100%;
+    top: 0;
+    left:0;
+  //opacity: 0;
+    z-index:103;
+
+}
+.animation-header {
+  height:auto;
+  @include user-select(none);
+  @include dpr-output(
+                          (font-size, $font-media-header),
+
+                          (line-height, $height-media-header)
+  );
+  @include display-flex(row,space-between,flex-start);
+  text-align: center;
+  .collapse-box {
+
+    @include display-flex(row,center,center);
+    @include dpr-output(
+                            (min-height, $height-media-header)
+    );
+    .icon-arrow-down {
+      margin-left: $space-media-header-collapse-box-sbb_arrow_down-l;
+    }
+  }
+  .expand-box {
+    @include dpr-output(
+      //(padding, (groupCalc($height, 2 , division) 0))
+                            (padding, (Space(2) 0 Space(6)))
+    );
+  }
+  .center {
+    @include dpr-output(
+                            (min-height, $height-media-header)
+    );
+  }
+  .left,.right {
+    @include dpr-output(
+                            (width, $height-media-header)
+    );
+  }
+}
